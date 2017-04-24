@@ -67,7 +67,8 @@ Select things in an XML file with XPath.
 ;;(#object[net.sf.saxon.s9api.XdmNode 0x3cadbb6f "<b/>"]
 ;; #object[net.sf.saxon.s9api.XdmNode 0x136b811a "<c/>"])
 
-;; Get the result of evaluating an XPath expression against a node.
+;; Get the result of evaluating an XPath expression against a node as a Java
+;; object.
 (xpath/value-of "<num>1</num>" "xs:int(num)")
 ;;=> 1
 ```
