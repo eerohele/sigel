@@ -1,7 +1,7 @@
 Sigel
 =====
 
-A Clojure interface to the XSLT and XPath bits of [Saxon].
+Sigel «ᛋ» is a Clojure interface to the XSLT and XPath bits of [Saxon].
 
 ## XSLT
 
