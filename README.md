@@ -36,6 +36,8 @@ XML:
 
 ```clojure
 (def stylesheet
+  ;; where identity.xsl is an XSLT stylesheet that does the identity
+  ;; transformation
   (StreamSource. (-> "identity.xsl" io/file io/input-stream)))
 
 (xslt/transform (xslt/compile stylesheet) "<a/>")
