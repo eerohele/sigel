@@ -16,11 +16,13 @@ Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 
 (def stylesheet-1
   "An XSLT stylesheet that converts <a/> to <b/>."
-  (xsl/stylesheet {:version 3.0} (xsl/template {:match "a"} [:b])))
+  (xsl/stylesheet {:version 3.0}
+    (xsl/template {:match "a"} [:b])))
 
 (def stylesheet-2
   "An XSLT stylesheet that converts <b/> to <c/>."
-  (xsl/stylesheet {:version 3.0} (xsl/template {:match "b"} [:c])))
+  (xsl/stylesheet {:version 3.0}
+    (xsl/template {:match "b"} [:c])))
 
 (def compiled-stylesheets
   [(xslt/compile-sexp stylesheet-1) (xslt/compile-sexp stylesheet-2)])
