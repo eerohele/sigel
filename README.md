@@ -33,14 +33,21 @@ Sigel lets you write XSLT, but with parenthesis instead of angle brackets.
 You can also just execute XSLT transformations written in plain old
 XML:
 
+```xslt
+<!-- a-to-b.xsl -->
+<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:template match="a">
+    <b/>
+  </xsl:template>
+</xsl:stylesheet>
+```
+
 ```clojure
 (def stylesheet
-  ;; where identity.xsl is an XSLT stylesheet that does the identity
-  ;; transformation
-  (StreamSource. (-> "identity.xsl" io/file io/input-stream)))
+  (StreamSource. (-> "a-to-b.xsl" io/file io/input-stream)))
 
 (xslt/transform (xslt/compile stylesheet) "<a/>")
-;;=> #object[net.sf.saxon.s9api.XdmNode 0x2bda7fdc "<a/>"]
+;;=> #object[net.sf.saxon.s9api.XdmNode 0x2bda7fdc "<b/>"]
 ```
 
 ## XPath
