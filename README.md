@@ -27,7 +27,7 @@ Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 (def compiled-stylesheets
   [(xslt/compile-sexp stylesheet-1) (xslt/compile-sexp stylesheet-2)])
 
-;; Transform the XML string "<a/>" with stylesheet-1 and stylesheet-2.
+;; Transform the XML string "<a/>" with stylesheet-1 and then stylesheet-2.
 (xslt/transform compiled-stylesheets "<a/>")
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x61acfa00 "<c/>"]
 ```
