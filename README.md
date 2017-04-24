@@ -5,7 +5,7 @@ A Clojure interface to the XSLT and XPath bits of [Saxon].
 
 ## XSLT
 
-Sigel lets you write XSLT, but with parenthesis instead of angle brackets.
+Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 
 ### Example
 
