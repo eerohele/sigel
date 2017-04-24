@@ -22,7 +22,7 @@
                   ["<a/>"])))
 
 (deftest xslt-single-transformation
-  (let [xslt (xslt3-identity (xsl/template {:match "a"} [:b]))]
+  (let [xslt (xsl/stylesheet {:version 3.0} (xsl/template {:match "a"} [:b]))]
     (is-xml-equal
       (xslt/transform (xslt/compile-sexp xslt) "<a/>")
       ["<b/>"])))
@@ -31,7 +31,8 @@
   (is-xml-equal (xslt/transform nil "<a/>") ["<a/>"]))
 
 (deftest xslt-params
-  (let [xslt (xslt3-identity
+  (let [xslt (xsl/stylesheet {:version 3.0
+                              :xmlns:xs "http://www.w3.org/2001/XMLSchema"}
                (xsl/param {:name "factor" :as "xs:integer"})
 
                (xsl/template
@@ -42,13 +43,13 @@
       ["<num>10</num>"])))
 
 (deftest xslt-pipeline
-  (let [xslt-1      (xslt3-identity
+  (let [xslt-1      (xsl/stylesheet {:version 3.0}
                       (xsl/template {:match "a"} [:b])
                       (xsl/template {:match "w"} [:x]))
-        xslt-2      (xslt3-identity
+        xslt-2      (xsl/stylesheet {:version 3.0}
                       (xsl/template {:match "b"} [:c])
                       (xsl/template {:match "x"} [:y]))
-        xslt-3      (xslt3-identity
+        xslt-3      (xsl/stylesheet {:version 3.0}
                       (xsl/template {:match "c"} [:d])
                       (xsl/template {:match "y"} [:z]))
         executables (map xslt/compile-sexp [xslt-1 xslt-2 xslt-3])]
