@@ -18,17 +18,17 @@
         identity-transform
         (xslt/compile
           (u/string->source stylesheet))]
-    (xml-equal? (xslt/transform identity-transform "<a/>")
-                ["<a/>"])))
+    (is-xml-equal (xslt/transform identity-transform "<a/>")
+                  ["<a/>"])))
 
 (deftest xslt-single-transformation
   (let [xslt (xslt3-identity (xsl/template {:match "a"} [:b]))]
-    (xml-equal?
+    (is-xml-equal
       (xslt/transform (xslt/compile-sexp xslt) "<a/>")
       ["<b/>"])))
 
 (deftest xslt-passing-nil-executable-returns-argument
-  (xml-equal? (xslt/transform nil "<a/>") ["<a/>"]))
+  (is-xml-equal (xslt/transform nil "<a/>") ["<a/>"]))
 
 (deftest xslt-params
   (let [xslt (xslt3-identity
@@ -37,7 +37,7 @@
                (xsl/template
                  {:match "num"}
                  (xsl/copy (xsl/value-of {:select "xs:int(.) * $factor"}))))]
-    (xml-equal?
+    (is-xml-equal
       (xslt/transform (xslt/compile-sexp xslt) {:factor 10} "<num>1</num>")
       ["<num>10</num>"])))
 
@@ -52,6 +52,6 @@
                       (xsl/template {:match "c"} [:d])
                       (xsl/template {:match "y"} [:z]))
         executables (map xslt/compile-sexp [xslt-1 xslt-2 xslt-3])]
-    (xml-equal?
+    (is-xml-equal
       (map (partial xslt/transform executables) ["<a/>" "<w/>"])
       ["<d/>" "<z/>"])))

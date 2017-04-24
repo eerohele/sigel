@@ -12,14 +12,14 @@
 
 (deftest match-xpath-pattern
   (let [context "<foo a=\"b\"><bar><foo c=\"d\"/></bar></foo>"]
-    (xml-equal? (xpath/match context "foo")
-                ["<foo a=\"b\"><bar><foo c=\"d\"/></bar></foo>" "<foo c=\"d\"/>"])))
+    (is-xml-equal (xpath/match context "foo")
+                  ["<foo a=\"b\"><bar><foo c=\"d\"/></bar></foo>" "<foo c=\"d\"/>"])))
 
 (deftest select-xpath-expression
   (let [compiler (xpath/compiler saxon/processor nil [(xpath/ns "q" "quux")])
         context  "<foo xmlns=\"quux\"><bar a=\"b\"/><bar c=\"d\"/></foo>"]
-    (xml-equal? (seq (xpath/select compiler context "q:foo/q:bar" nil))
-                ["<bar xmlns=\"quux\" a=\"b\"/>" "<bar xmlns=\"quux\" c=\"d\"/>"])))
+    (is-xml-equal (seq (xpath/select compiler context "q:foo/q:bar" nil))
+                  ["<bar xmlns=\"quux\" a=\"b\"/>" "<bar xmlns=\"quux\" c=\"d\"/>"])))
 
 (deftest value-of-xpath-expression
   (is (= (xpath/value-of "<num>1</num>" "xs:int(num)") 1)))
@@ -34,7 +34,7 @@
                  {:two 2})))
 
 (deftest set-xpath-variable-for-pattern
-  (xml-equal?
+  (is-xml-equal
     (xpath/match (xpath/compiler)
                  "<num>1</num>" "num[xs:integer(.) eq $one]"
                  {:one 1})

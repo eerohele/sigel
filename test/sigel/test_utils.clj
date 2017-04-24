@@ -8,7 +8,7 @@
   (.ignoreWhitespace
     (.checkForIdentical (DiffBuilder/compare (Input/fromString (str actual))))))
 
-(defn xml-equal?
+(defn is-xml-equal
   [actual expected]
   (doseq [[a e] (map vector actual expected)]
     (let [diff (.build (.withTest (diff-builder a) (Input/fromString e)))]
