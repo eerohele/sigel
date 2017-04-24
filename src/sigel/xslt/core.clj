@@ -63,10 +63,10 @@
           (conclude xdmnode)
           :else
           (internal-transform
-            (rest executables)
-            params
-            (execute-transformation (first executables) parameters xdmnode)
-            conclude))))
+           (rest executables)
+           params
+           (execute-transformation (first executables) parameters xdmnode)
+           conclude))))
 
 (defn transform
   "Execute one or more XSLT transformations on the given source file.

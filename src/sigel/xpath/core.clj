@@ -119,10 +119,10 @@
   ([compiler context pattern bindings]
    (let [selector (bind-selector compiler :pattern pattern context bindings)]
      (XdmValue.
-      (filter (fn [node]
-                (.setContextItem selector node)
-                (.effectiveBooleanValue selector))
-              (->seq (build context))))))
+       (filter (fn [node]
+                 (.setContextItem selector node)
+                 (.effectiveBooleanValue selector))
+               (->seq (build context))))))
   ([context pattern]
    (match *compiler* context pattern nil)))
 
@@ -138,7 +138,7 @@
   ; => true"
   ([compiler context expression bindings]
    (.effectiveBooleanValue
-    (bind-selector compiler :expression expression context bindings)))
+     (bind-selector compiler :expression expression context bindings)))
   ([context expression]
    (is? *compiler* context expression nil)))
 

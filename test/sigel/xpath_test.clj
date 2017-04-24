@@ -35,7 +35,7 @@
 
 (deftest set-xpath-variable-for-pattern
   (is-xml-equal
-    (xpath/match (xpath/compiler)
-                 "<num>1</num>" "num[xs:integer(.) eq $one]"
-                 {:one 1})
-    ["<num>1</num>"]))
+   (xpath/match (xpath/compiler)
+     "<num>1</num>" "num[xs:integer(.) eq $one]"
+     {:one 1})
+   ["<num>1</num>"]))

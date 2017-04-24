@@ -6,10 +6,9 @@
 (def identity
   "An XSLT identity template."
   (xsl/template
-    {:match "@* | node()"}
-    (xsl/copy
-      (xsl/apply-templates {:select "@* | node()"}))))
-
+   {:match "@* | node()"}
+   (xsl/copy
+    (xsl/apply-templates {:select "@* | node()"}))))
 
 (defn xslt3-identity
   "An XSLT 3.0 stylesheet with an identity template and the XML Schema namespace
