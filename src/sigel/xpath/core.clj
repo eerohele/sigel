@@ -158,9 +158,7 @@
   ([compiler context expression bindings]
    (let [value (.. (bind-selector compiler :expression expression context bindings)
                    (evaluateSingle))]
-     (if (.isAtomicValue value)
-       (.getValue value)
-       (.getStringValue value))))
+     (saxon/xdmvalue->object value)))
   ([context expression]
    (value-of *compiler* context expression nil)))
 

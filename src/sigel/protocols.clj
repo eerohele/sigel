@@ -6,7 +6,7 @@
            (java.io StringReader File)
            (java.net URI URL)
            (javax.xml.transform Source)
-           (clojure.lang Keyword)))
+           (clojure.lang Keyword APersistentVector)))
 
 (defprotocol XMLSource
   "A protocol for things that can be converted into a Saxon
@@ -48,6 +48,9 @@
 
 (extend-protocol QNameable Keyword
                  (->qname [qname] (-> qname name ->qname)))
+
+(extend-protocol QNameable APersistentVector
+                 (->qname [[namespace name]] (QName. namespace name)))
 
 (defprotocol XMLValue
   "A protocol for things that can be converted into a Saxon
