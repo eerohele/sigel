@@ -33,8 +33,7 @@ Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x61acfa00 "<c/>"]
 ```
 
-You can also just execute XSLT transformations written in plain old
-XML:
+You can also execute XSLT transformations written in plain old XML:
 
 ```xslt
 <!-- a-to-b.xsl -->
