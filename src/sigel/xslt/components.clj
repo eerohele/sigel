@@ -12,7 +12,7 @@
 
 (defn xslt3-identity
   "An XSLT 3.0 stylesheet with an identity template and the XML Schema namespace
-  (http://www.w3.org/2001/XMLSchema) pre-bound."
+  (http://www.w3.org/2001/XMLSchema) pre-bound to the `xs` namespace prefix."
   [& xs]
   (xsl/stylesheet {:version 3.0
                    :xmlns:xs "http://www.w3.org/2001/XMLSchema"

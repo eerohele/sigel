@@ -8,7 +8,7 @@
            (net.sf.saxon.s9api XsltCompiler Serializer XsltExecutable)))
 
 (defn compiler
-  "Create a new XSLT compiler."
+  "Create a new [XsltCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XsltCompiler.html)."
   []
   (.newXsltCompiler saxon/processor))
 
@@ -44,7 +44,7 @@
 
   ;; Compile the stylesheet.
   (xslt/compile-sexp stylesheet)
-  ;;=>  #object[net.sf.saxon.s9api.XsltExecutable 0x1098b3aa \"net.sf.saxon.s9api.XsltExecutable@1098b3aa\"]
+  ;;=>  #object[net.sf.saxon.s9api.XsltExecutable 0x1098b3aa        \"net.sf.saxon.s9api.XsltExecutable@1098b3aa\"]
   ```"
   ([compiler stylesheet]
    (let [writer (xml/emit (xml/sexp-as-element stylesheet) (StringWriter.))]

@@ -20,7 +20,14 @@
 (defn xdmvalue->object
   "Get the value of an XdmValue as the nearest equivalent Java object.
 
-  If the XdmValue is a node, return the string value of that node."
+  If the XdmValue is a node, return the string value of that node.
+
+  Example:
+
+  ```
+  (class (xdmvalue->object (xpath/select \"<num>1</num>\" \"xs:integer(num)\")))
+  ;;=> java.math.BigInteger
+  ```"
   [value]
   (if (.isAtomicValue value)
     (.getValue value)

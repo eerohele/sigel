@@ -14,9 +14,9 @@
                                XsltCompiler)))
 
 (defn make-sequence-type
-  "A wrapper for Saxon's SequenceType.makeSequenceType() method. Takes
-  arguments in the reverse order to the original method because it feel
-  more pleasant to say `[:one :boolean]` than `[:boolean :one]`."
+  "A wrapper for [`SequenceType/makeSequenceType`](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/SequenceType.html). Takes arguments in the reverse
+  order to the original method because it's more pleasant to write
+  `[:one :boolean]` than `[:boolean :one]`."
   [occurrence-indicator item-type]
   {:pre [(some #{occurrence-indicator}
                (u/get-static-fields-as-keywords OccurrenceIndicator))
@@ -32,7 +32,9 @@
   Example:
 
   ```
-  (ief/function
+  (require '[sigel.extension :as ext])
+
+  (ext/function
    [\"local\" \"double\"] ;; the namespace URI and local name
    [[:one :int]]  ;; the argument types
    [:one :double] ;; the result type
@@ -62,6 +64,8 @@
 
 (defn register-extension-function!
   "Register a Saxon integrated extension function.
+
+  You can use [[function]] to define an integrated extension function.
 
   `host` can be a Saxon `Processor`, `XPathCompiler`, or `XsltCompiler`."
   [host function]
