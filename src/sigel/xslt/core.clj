@@ -31,9 +31,18 @@
 
   If you don't pass in an XsltCompiler, Sigel uses [[*compiler*]].
 
+  You can execute the compiled stylesheet with [[transform]].
+
   Example:
 
   ```
+  ;; Define an XSLT stylesheet.
+  (def stylesheet
+    (xslt/stylesheet {:version 3.0}
+      (xsl/template {:match \"a\"} [:b])))
+
+  ;; Compile the stylesheet.
+  (xslt/compile-sexp stylesheet)
   ```"
   ([compiler stylesheet]
    (let [writer (xml/emit (xml/sexp-as-element stylesheet) (StringWriter.))]
