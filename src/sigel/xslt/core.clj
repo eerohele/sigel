@@ -29,7 +29,8 @@
 (defn compile-sexp
   "Compile an XSLT stylesheet written in Clojure.
 
-  If you don't pass in an XsltCompiler, Sigel uses [[*compiler*]].
+  If you don't pass in an [XsltCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XsltCompiler.html),
+  Sigel uses [[*compiler*]].
 
   You can execute the compiled stylesheet with [[transform]].
 
@@ -38,11 +39,12 @@
   ```
   ;; Define an XSLT stylesheet.
   (def stylesheet
-    (xslt/stylesheet {:version 3.0}
+    (xsl/stylesheet {:version 3.0}
       (xsl/template {:match \"a\"} [:b])))
 
   ;; Compile the stylesheet.
   (xslt/compile-sexp stylesheet)
+  ;;=>  #object[net.sf.saxon.s9api.XsltExecutable 0x1098b3aa \"net.sf.saxon.s9api.XsltExecutable@1098b3aa\"]
   ```"
   ([compiler stylesheet]
    (let [writer (xml/emit (xml/sexp-as-element stylesheet) (StringWriter.))]
