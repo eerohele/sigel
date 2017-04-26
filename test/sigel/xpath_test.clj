@@ -7,7 +7,7 @@
 
 (deftest set-default-xpath-namespace
   (let [compiler
-        (xpath/set-default-namespace (xpath/compiler) "foo")]
+        (xpath/set-default-namespace! (xpath/compiler) "foo")]
     (is (= "foo" (xpath/default-namespace compiler)))))
 
 (deftest match-xpath-pattern

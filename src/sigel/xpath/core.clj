@@ -35,10 +35,22 @@
   [prefix uri]
   (->Namespace prefix uri))
 
-(defn set-default-namespace
+(defn set-default-namespace!
   "Set the default namespace URI of an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html).
 
-  Setting the default namespace URI allows you to leave out the namespace prefix from your XPath expressions."
+  Setting the default namespace URI allows you to omit the namespace prefix from
+  your XPath expressions.
+
+  Example:
+
+  ```
+  (def my-compiler (xpath/compiler))
+
+  (set-default-namespace! my-compiler \"bar\")
+
+  (xpath/select my-compiler \"<foo xmlns=\\\"bar\\\"><baz/></foo>\" \"foo/baz\")
+  ;;=> #object[net.sf.saxon.s9api.XdmNode 0x2e91fb2b \"<baz xmlns=\\\"bar\\\"/>\"]
+  ```"
   [compiler uri]
   (when ((complement empty?) uri)
     (.declareNamespace compiler "" uri))
@@ -67,7 +79,7 @@
   you want the XPathCompiler to know about."
   ([processor default-namespace-uri namespaces]
    (let [compiler (doto (.newXPathCompiler processor)
-                    (set-default-namespace default-namespace-uri))]
+                    (set-default-namespace! default-namespace-uri))]
      (doseq [namespace namespaces] (declare-namespace compiler namespace))
      compiler))
   ([] (compiler saxon/processor nil nil)))
