@@ -14,7 +14,7 @@
   If you don't pass in your own `XPathCompiler` as the first argument to a
   function like that, they use [`*compiler*`][dyn-compiler].
 
-  ## Use variables in your XPath expression or pattern
+  ## Use variables in XPath expression or pattern
 
   If you need to use variables in your XPath expression or pattern, you can pass
   a map of variables as the last argument to your XPath operation.
