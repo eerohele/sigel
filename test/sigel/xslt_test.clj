@@ -16,7 +16,7 @@
              "  </xsl:template>"
              "</xsl:stylesheet>")
         identity-transform
-        (xslt/compile
+        (xslt/compile-source
          (u/string->source stylesheet))]
     (is-xml-equal (xslt/transform identity-transform "<a/>")
                   ["<a/>"])))

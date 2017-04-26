@@ -19,12 +19,12 @@
   instance when compiling a stylesheet, Sigel uses this instance."
   (compiler))
 
-(defn compile
+(defn compile-source
   "Compile an XSLT stylesheet from a [Source](https://docs.oracle.com/javase/8/docs/api/javax/xml/transform/Source.html)."
   ([compiler stylesheet]
    (.compile compiler stylesheet))
   ([stylesheet]
-   (compile *compiler* stylesheet)))
+   (compile-source *compiler* stylesheet)))
 
 (defn compile-sexp
   "Compile an XSLT stylesheet written in Clojure.
