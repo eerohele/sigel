@@ -500,7 +500,7 @@
   stylesheet. The name `xsl:transform` may be used as a synonym."
   {:since "1.0"}
   [& [a & xs]]
-  [::xsl/stylesheet a xs])
+  [::xsl/stylesheet (clojure.core/merge {:xmlns/xsl namespace-uri} a) xs])
 
 (defn template
   "Defines a processing rule for source elements or other nodes of a particular
