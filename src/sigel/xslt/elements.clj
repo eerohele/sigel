@@ -9,9 +9,24 @@
   [the Saxon documentation](http://www.saxonica.com/html/documentation/xsl-elements)."
   (:require [clojure.data.xml :as xml])
   (:refer-clojure :exclude
-                  [assert catch if import iterate key map namespace try when]))
+                  [assert
+                   catch
+                   comment
+                   if
+                   import
+                   iterate
+                   key
+                   map
+                   merge
+                   namespace
+                   sequence
+                   sort
+                   try
+                   when]))
 
-(xml/alias-uri 'xsl "http://www.w3.org/1999/XSL/Transform")
+(def namespace-uri "http://www.w3.org/1999/XSL/Transform")
+
+(xml/alias-uri 'xsl namespace-uri)
 
 (defn accept
   "Allows a package to restrict the visibility of components exposed by a
