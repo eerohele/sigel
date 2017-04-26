@@ -66,18 +66,16 @@
 
 (defn- internal-transform
   [executables params source conclude]
-  (let [xdmnode (build source)
+  (let [xdmnode    (build source)
         parameters (->param-map params)]
     (cond (instance? XsltExecutable executables)
-          (execute-transformation executables parameters xdmnode)
-          (empty? executables)
-          (conclude xdmnode)
-          :else
-          (internal-transform
-           (rest executables)
-           params
-           (execute-transformation (first executables) parameters xdmnode)
-           conclude))))
+          (internal-transform [executables] parameters source conclude)
+          (empty? executables) (conclude xdmnode)
+          :else (internal-transform
+                  (rest executables)
+                  params
+                  (execute-transformation (first executables) parameters xdmnode)
+                  conclude))))
 
 (defn transform
   "Execute one or more XSLT transformations on the given source file.
@@ -111,7 +109,24 @@
 
   (xslt/transform compiled-stylesheets \"<a/>\")
   ;;=> \"<c/>\"
-  ```"
+  ```
+
+  You can pass a map of parameters to the XSLT stylesheet.
+
+  Example:
+
+  ```
+  (def xslt
+    (xsl/stylesheet {:version 3.0 :xmlns:xs \"http://www.w3.org/2001/XMLSchema\"}
+      (xsl/param {:name \"factor\" :as \"xs:integer\"})
+
+      (xsl/template {:match \"num\"}
+        (xsl/copy (xsl/value-of {:select \"xs:int(.) * $factor\"})))))
+
+  (xslt/transform (xslt/compile-sexp xslt) {:factor 10} \"<num>1</num>\")
+  ;;=> \"<num>10</num>\"
+  ```
+  "
   ([executables params source]
    (internal-transform executables params source identity))
   ([executables source]
@@ -143,3 +158,4 @@
      (internal-transform executables params source serialize-to-file)))
   ([executables source target]
    (transform-to-file executables nil source target)))
+

@@ -43,8 +43,8 @@
 
   The argument and result types of the extension function are defined as tuples
   of an [OccurrenceIndicator](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/OccurrenceIndicator.html)
-  and [ItemType](www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/ItemType.html), but
-  as Clojure keywords instead of Java CONSTANTS.
+  and [ItemType](www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/ItemType.html),
+  but as Clojure `:keywords` instead of Java `CONSTANTS`.
 
   For example, `ONE` becomes `:one`, `ANY_NODE` becomes `:any-node` etc.
   "

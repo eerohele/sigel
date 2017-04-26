@@ -1,4 +1,5 @@
 (ns sigel.utils
+  "A set of utility functions mostly for internal use."
   (:require [clojure.string :as string])
   (:import (javax.xml.transform.stream StreamSource)
            (java.io StringBufferInputStream)))

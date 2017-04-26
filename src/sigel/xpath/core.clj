@@ -1,5 +1,45 @@
 (ns sigel.xpath.core
-  "Functions for selecting and matching things in an XML file with XPath."
+  "Functions for selecting and matching things in an XML file with XPath.
+
+  For examples, see the function-specific documentation for each function. The
+  examples assume you've required this namespace:
+
+  ```
+  (require '[sigel.xpath.core :as xpath])
+  ```
+
+  Every function in the `sigel.xpath.core` namespace that select or match things
+  in an XML document rely on an [XPathCompiler].
+
+  If you don't pass in your own `XPathCompiler` as the first argument to a
+  function like that, they use [`*compiler*`][dyn-compiler].
+
+  ## Use variables in your XPath expression or pattern
+
+  If you need to use variables in your XPath expression or pattern, you can pass
+  a map of variables as the last argument to your XPath operation.
+
+  The map key must implement the [QNameable] protocol. The value must implement
+  the [XMLValue] protocol.
+
+  If you use variables, you also need to pass in an `XPathCompiler` as the first
+  argument, because setting a variable mutates the `XPathCompiler` instance.
+
+  Example:
+
+  ```
+  (def my-compiler (xpath/compiler))
+
+  (xpath/is? my-compiler \"<num>1</num>\" \"xs:integer(num) * $two eq 2\" {:two 2})
+  ```
+
+  [XPathCompiler]: http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html
+
+  [dyn-compiler]: sigel.xpath.core.html#var-*compiler*
+  [xpath-api]: sigel.xpath.core.html
+
+  [QNameable]: sigel.protocols.html#var-QNameable
+  [XMLValue]: sigel.protocols.html#var-XMLValue"
   (:require [sigel.core :as saxon]
             [sigel.protocols :refer :all])
   (:refer-clojure :exclude [ns])
@@ -127,7 +167,17 @@
   "Return a sequence of values that match an XPath pattern in the given XML
   context.
 
-  Optionally, give a map of XPath variable bindings."
+  Optionally, give a map of XPath variable bindings.
+
+  Example:
+
+  ```
+  (vec (xpath/match \"<nums><num>1</num><num>2</num><num>3</num></nums>\"
+                    \"num[xs:int(.) lt 3]\"))
+  ;;=>
+  ;;[#object[net.sf.saxon.s9api.XdmNode 0x51912c8 \"<num>1</num>\"]
+  ;; #object[net.sf.saxon.s9api.XdmNode 0x4cc3057a \"<num>2</num>\"]]
+  ```"
   ([compiler context pattern bindings]
    (let [selector (bind-selector compiler :pattern pattern context bindings)]
      (XdmValue.
@@ -146,8 +196,10 @@
 
   Example:
 
-  (xpath/is? compiler (saxon/build \"<one>1</one>\") \"xs:int(one) + 2 eq 3\")
-  ; => true"
+  ```
+  (xpath/is? compiler \"<one>1</one>\" \"xs:int(one) + 2 eq 3\")
+  ; => true
+  ```"
   ([compiler context expression bindings]
    (.effectiveBooleanValue
      (bind-selector compiler :expression expression context bindings)))
@@ -156,7 +208,22 @@
 
 (defn select
   "Return a sequence of values that match an XPath expression in the given
-  XML context."
+  XML context.
+
+  Example:
+
+  ```
+  (def document \"<a><b/><c/></a>\")
+
+  (xpath/select document \"a/b | a/c\")
+
+  ;;=> #object[net.sf.saxon.s9api.XdmValue 0x157cb3cd \"<b/>\\\\n<c/>\"]
+
+  ;; `select` returns an XdmValue, which is an Iterable, so you can use
+  ;; Clojure's seq functions on the result.
+  (str (.getNodeName (first (xpath/select document \"a/b | a/c\"))))
+  ;;=> \"b\"
+  ```"
   ([compiler context expression bindings]
    (.evaluate (bind-selector compiler :expression expression context bindings)))
   ([context expression]
@@ -166,7 +233,14 @@
   "Return the value of an XPath expression evaluated in the given context.
 
   If the value is an atomic value, return the value as a Java object of the
-  equivalent type. If it's a node, get the string value of the node."
+  equivalent type. If it's a node, get the string value of the node.
+
+  Example:
+
+  ```
+  (xpath/value-of \"<num>1</num>\" \"xs:int(num)\")
+  ;;=> 1
+  ```"
   ([compiler context expression bindings]
    (let [value (.. (bind-selector compiler :expression expression context bindings)
                    (evaluateSingle))]

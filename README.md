@@ -73,13 +73,6 @@ Select things in an XML file with XPath.
 ;;=> 1
 ```
 
-## XML sources
-
-Both the XSLT and XPath components of Sigel understand anything that implements the `XMLSource` protocol.
-
-The `XMLSource` protocol converts its input into a Saxon [XdmNode]. If Sigel can't understand your XML source, extend the `XMLSource`
-protocol yourself.
-
 ## License
 
 Copyright © 2017 Eero Helenius
@@ -92,4 +85,3 @@ Saxon is licensed under the [Mozilla Public License][MPL].
 [EPL]: https://www.eclipse.org/legal/epl-v10.html
 [MPL]: https://www.mozilla.org/en-US/MPL
 [Saxon]: http://www.saxonica.com
-[XdmNode]: http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XdmNode.html

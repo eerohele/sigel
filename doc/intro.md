@@ -1,3 +1,5 @@
-# Introduction to sigel
+# Introduction
 
-TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)
+See [README] for a quick introduction to what you can do with Sigel.
+
+[README]: https://github.com/eerohele/sigel/blob/master/README.md

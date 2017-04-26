@@ -1,6 +1,7 @@
 (defproject sigel "0.1.0-SNAPSHOT"
-  :description "A Clojure wrapper for Saxon."
-  :url "http://example.com/FIXME"
+  :description
+    "Sigel «ᛋ» is a Clojure interface to the XSLT and XPath bits of Saxon."
+  :url "http://github.com/eerohele/sigel"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0-alpha15"]
