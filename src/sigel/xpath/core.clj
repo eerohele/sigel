@@ -61,7 +61,7 @@
   [compiler]
   (.. compiler (getUnderlyingStaticContext) (getDefaultElementNamespace)))
 
-(defn declare-namespace
+(defn declare-namespace!
   "Teach an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html)
   about a namespace.
 
@@ -70,7 +70,7 @@
   ([compiler prefix uri]
    (doto compiler (.declareNamespace prefix uri)))
   ([compiler ns-decl]
-   (declare-namespace compiler (:prefix ns-decl) (:uri ns-decl))))
+   (declare-namespace! compiler (:prefix ns-decl) (:uri ns-decl))))
 
 (defn compiler
   "Make a new [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html).
@@ -80,7 +80,7 @@
   ([processor default-namespace-uri namespaces]
    (let [compiler (doto (.newXPathCompiler processor)
                     (set-default-namespace! default-namespace-uri))]
-     (doseq [namespace namespaces] (declare-namespace compiler namespace))
+     (doseq [namespace namespaces] (declare-namespace! compiler namespace))
      compiler))
   ([] (compiler saxon/processor nil nil)))
 
