@@ -88,7 +88,7 @@
   [selector [name value]]
   (doto selector (.setVariable (->qname name) (->xdmvalue value))))
 
-(defn declare-variables
+(defn declare-variables!
   "Declare variables on an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html).
 
   This function does not set the value of a variable. Rather, it tells the
@@ -99,7 +99,7 @@
 
 (defn- bind-selector
   [compiler xpath-type pattern context bindings]
-  (let [compiler (declare-variables compiler bindings)
+  (let [compiler (declare-variables! compiler bindings)
         selector (.load (if (= xpath-type :pattern)
                           (.compilePattern compiler pattern)
                           (.compile compiler pattern)))]
