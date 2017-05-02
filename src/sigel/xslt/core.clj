@@ -1,5 +1,73 @@
 (ns sigel.xslt.core
-  "Write XSLT transformations with Clojure."
+  "Write and execute XSLT transformations with Clojure.
+
+  ## XML namespaces
+
+  Scenario:
+
+  - Your source XML document is in an XML namespace.
+  - You want to transform that document with Sigel into the same namespace.
+  - You want to write literal XML elements in your transformation, instead of
+    using `xsl:element`.
+
+  For example, you want to transform this:
+
+  ```xml
+  <a xmlns=\"my-ns\"/>
+  ```
+
+  To this:
+
+  ```xml
+  <b xmlns=\"my-ns\"/>
+  ```
+
+  In your XSLT transformation, you want to write something like this:
+
+  ```
+  (xsl/template {:match \"a\"} [:b])
+  ```
+
+  Instead of this:
+
+  ```
+  (xsl/template {:match \"a\"}
+    (xsl/element {:name \"b\"}))
+  ```
+
+  If you create a literal element with `[:b]`, though, clojure.data.xml puts it
+  into the empty namespace. That means that the XSLT stylesheet Sigel produces
+  will have this:
+
+  ```xml
+  <xsl:template match=\"a\">
+    <!-- note the empty xmlns namespace declaration -->
+    <b xmlns=\"\"/>
+  </xsl:template>
+  ```
+
+  When what you actually want is this:
+
+  ```xml
+  <xsl:template match=\"a\">
+    <b/>
+  </xsl:template>
+  ```
+
+  To do that, you must first set up your namespace with
+  `clojure.data.xml/alias-uri`:
+
+  ```clojure
+  (xml/alias-uri 'my-ns \"my-ns-uri\")
+  ```
+
+  You then need to set the `xmlns` attribute of your stylesheet and use the
+  `my-ns` prefix when emitting literal XML elements:
+
+  ```clojure
+  (xsl/stylesheet {:version 3.0 :xmlns \"my-ns-uri\"}
+    (xsl/template {:match \"a\"} [::my-ns/b]))
+  ```"
   (:require [clojure.data.xml :as xml]
             [sigel.core :as saxon]
             [sigel.protocols :refer :all]
