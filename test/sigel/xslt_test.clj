@@ -4,7 +4,12 @@
             [sigel.xslt.core :as xslt]
             [sigel.test-utils :refer :all]
             [sigel.utils :as u]
-            [clojure.test :refer :all]))
+            [clojure.test :refer :all]
+            [clojure.java.io :as io]))
+
+(deftest xslt-compile-from-edn
+  (let [stylesheet (-> "examples/a.edn" io/resource xslt/compile-edn)]
+    (is-xml-equal (xslt/transform stylesheet "<a/>") ["<b/>"])))
 
 (deftest xslt-compile-from-source
   (let [stylesheet

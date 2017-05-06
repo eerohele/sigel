@@ -17,7 +17,6 @@ Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 (def stylesheet-1
   "An XSLT stylesheet that converts <a/> to <b/>."
   (xsl/stylesheet {:version 3.0}
-    ;; [:b] is equivalent to <b/>. See clojure.data.xml/sexp-as-element.
     (xsl/template {:match "a"} [:b])))
 
 (def stylesheet-2
@@ -33,9 +32,21 @@ Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x61acfa00 "<c/>"]
 ```
 
+You can also write your transformation in EDN:
+
+```clojure
+;; a.edn
+[:xsl/stylesheet {:version 3.0}
+ [:xsl/template {:match "a"} [:b]]]
+
+;; in your Clojure code
+(xslt/transform (xslt/compile-edn "/path/to/a.edn") "<a/>")
+;;=> #object[net.sf.saxon.s9api.XdmNode 0xf2a49c4 "<b/>"]
+```
+
 You can also execute XSLT transformations written in plain old XML:
 
-```xslt
+```xsl
 <!-- a-to-b.xsl -->
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="a">

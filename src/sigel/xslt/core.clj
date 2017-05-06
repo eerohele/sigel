@@ -71,8 +71,11 @@
   (:require [clojure.data.xml :as xml]
             [sigel.core :as saxon]
             [sigel.protocols :refer :all]
-            [sigel.utils :as u])
-  (:import (java.io StringWriter)
+            [sigel.utils :as u]
+            [clojure.edn :as edn]
+            [clojure.walk :as walk]
+            [clojure.java.io :as io])
+  (:import (java.io StringWriter PushbackReader)
            (net.sf.saxon.s9api XsltCompiler Serializer XsltExecutable)))
 
 (defn compiler
@@ -112,7 +115,7 @@
 
   ;; Compile the stylesheet.
   (xslt/compile-sexp stylesheet)
-  ;;=>  #object[net.sf.saxon.s9api.XsltExecutable 0x1098b3aa        \"net.sf.saxon.s9api.XsltExecutable@1098b3aa\"]
+  ;;=> #object[net.sf.saxon.s9api.XsltExecutable 0x1098b3aa \"net.sf.saxon.s9api.XsltExecutable@1098b3aa\"]
   ```"
   ([compiler stylesheet]
    (let [writer (xml/emit (xml/sexp-as-element stylesheet) (StringWriter.))]
@@ -120,6 +123,37 @@
          (compile (u/string->source (str writer))))))
   ([stylesheet]
    (compile-sexp *compiler* stylesheet)))
+
+(defn- update-xsl-namespaces
+  [stylesheet]
+  (walk/postwalk
+    #(if (and (keyword? %) (= (namespace %) "xsl"))
+       (keyword "xmlns.http%3A%2F%2Fwww.w3.org%2F1999%2FXSL%2FTransform" (name %))
+       %)
+    stylesheet))
+
+(defn compile-edn
+  "Compile a stylesheet defined in an EDN file.
+
+  To write an EDN stylesheet, instead of calling the functions in the
+  `sigel.xslt.elements` namespace, use the `:xsl` namespace prefix like this:
+
+  ```
+  ;; a.edn
+  [:xsl/stylesheet {:version 3.0}
+    [:xsl/template {:match \"a\"} [:b]]]
+  ```
+
+  Then compile the stylesheet and transform some XML with it:
+
+  ```
+  (xslt/transform (xslt/compile-edn \"resources/examples/a.edn\") \"<a/>\")
+  ;;=> #object[net.sf.saxon.s9api.XdmNode 0xf2a49c4 \"<b/>\"]
+  ```"
+  [path]
+  (with-open
+    [reader (PushbackReader. (io/reader path))]
+    (-> (edn/read reader) update-xsl-namespaces compile-sexp)))
 
 (defn- ->param-map
   [params]
@@ -134,7 +168,7 @@
 
 (defn- internal-transform
   [executables params source conclude]
-  (let [xdmnode    (build source)
+  (let [xdmnode (build source)
         parameters (->param-map params)]
     (cond (instance? XsltExecutable executables)
           (internal-transform [executables] parameters source conclude)
@@ -226,4 +260,3 @@
      (internal-transform executables params source serialize-to-file)))
   ([executables source target]
    (transform-to-file executables nil source target)))
-
