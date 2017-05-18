@@ -72,11 +72,12 @@
             [sigel.saxon :as saxon]
             [sigel.protocols :refer :all]
             [sigel.utils :as u]
+            [sigel.xslt.components :as components]
             [clojure.edn :as edn]
             [clojure.walk :as walk]
             [clojure.java.io :as io])
   (:import (java.io StringWriter PushbackReader)
-           (net.sf.saxon.s9api XsltCompiler Serializer XsltExecutable)))
+           (net.sf.saxon.s9api XsltCompiler Serializer XsltExecutable XdmDestination Xslt30Transformer)))
 
 (defn compiler
   "Create a new [XsltCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XsltCompiler.html)."
@@ -160,24 +161,37 @@
   (reduce merge
           (map (fn [[k v]] (hash-map (->qname k) (->xdmvalue v))) params)))
 
-(defn- execute-transformation
-  [executable params source]
+(defn- get-transformer
+  [executable params]
   (let [transformer (.load30 executable)]
-    (when (seq params) (.setStylesheetParameters transformer params))
-    (.applyTemplates transformer (build source))))
+    (when (seq params) (.setStylesheetParameters transformer (->param-map params)))
+    transformer))
 
-(defn- internal-transform
-  [executables params source conclude]
-  (let [xdmnode (build source)
-        parameters (->param-map params)]
-    (cond (instance? XsltExecutable executables)
-          (internal-transform [executables] parameters source conclude)
-          (empty? executables) (conclude xdmnode)
-          :else (internal-transform
-                  (rest executables)
-                  params
-                  (execute-transformation (first executables) parameters xdmnode)
-                  conclude))))
+(def ^:private identity-xslt3-transformer
+  (get-transformer
+    (compile-sexp components/identity-transformation) nil))
+
+(defn- sequentify
+  [x]
+  (if (sequential? x)
+    x
+    [x]))
+
+(defn apply-templates
+  ([^Xslt30Transformer transformer source]
+   (.applyTemplates transformer (build source)))
+  ([transformer source destination]
+   (.applyTemplates transformer (build source) destination)
+   destination))
+
+(defn pipeline
+  [[ex & exs] params source destination]
+  (if (nil? ex)
+    (apply-templates identity-xslt3-transformer source destination)
+    (let [transformer (get-transformer ex params)]
+      (if (empty? exs)
+        (apply-templates transformer source destination)
+        (pipeline exs params (apply-templates transformer source) destination)))))
 
 (defn transform
   "Execute one or more XSLT transformations on the given source file.
@@ -230,7 +244,8 @@
   ```
   "
   ([executables params source]
-   (internal-transform executables params source identity))
+   (.getXdmNode
+     (pipeline (sequentify executables) params source (XdmDestination.))))
   ([executables source]
    (transform executables nil source)))
 
@@ -248,15 +263,13 @@
 
   ;; Compile the stylesheet and use it to transform \"<a/>\".
   ;;
-  ;; Store the result of the transformation into \"/tmp/b.xml\".
+  ;; Save the result of the transformation into \"/tmp/b.xml\".
   (xslt/transform-to-file (xslt/compile-sexp stylesheet)
                           \"<a/>\"
                           (io/file \"/tmp/b.xml\")
   ```"
   ([executables params source target]
-   (letfn [(serialize-to-file [xdmnode]
-             (let [serializer (.newSerializer saxon/processor target)]
-               (.serializeNode serializer xdmnode)))]
-     (internal-transform executables params source serialize-to-file)))
+   (let [serializer  (.newSerializer saxon/processor target)]
+     (pipeline (sequentify executables) params source serializer)))
   ([executables source target]
    (transform-to-file executables nil source target)))
