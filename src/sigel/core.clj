@@ -2,33 +2,71 @@
   "Sigel is a Clojure interface to the [Saxon](http://www.saxonica.com) XSLT and
   XPath implementations."
   (:gen-class)
-  (:import (net.sf.saxon Configuration)
-           (net.sf.saxon.s9api DocumentBuilder Processor)))
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [clojure.java.io :as io]
+            [clojure.edn :as edn]
+            [clojure.string :as string]
+            [sigel.xslt.core :as xslt])
+  (:import (java.io File)))
 
-(def ^Configuration configuration
-  "A default Saxon [Configuration](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/Configuration.html)."
-  (Configuration.))
+(def cli-options
+  [["-e"
+    "--edn EDN"
+    "One or mode EDN files that define XSLT transformations."
+    :parse-fn #(map io/as-file (string/split % #" "))]
+   ["-p"
+    "--parameters PARAMS"
+    "A map of parameters to pass to every transformation. Example: {:foo 1}"
+    :parse-fn edn/read-string]
+   ["-h" "--help" "Show this help."]])
 
-(def ^Processor processor
-  "A default Saxon [Processor](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/Processor.html)."
-  (Processor. configuration))
+(defn help
+  [options-summary]
+  (->> ["Sigel."
+        ""
+        "Usage: sigel [options] action source(s)"
+        ""
+        "Options:"
+        options-summary]
+       (string/join \newline)))
 
-(def ^DocumentBuilder builder
-  "A Saxon [DocumentBuilder](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/DocumentBuilder.html)."
-  (.newDocumentBuilder processor))
+(def user-dir (System/getProperty "user.dir"))
 
-(defn xdmvalue->object
-  "Get the value of an XdmValue as the nearest equivalent Java object.
+(defn- get-output-file
+  [source]
+  (let [dir (io/file user-dir (io/file "target"))]
+    (.mkdir dir)
+    (io/file dir (.getName source))))
 
-  If the XdmValue is a node, return the string value of that node.
+(defn- validate-args
+  [args]
+  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
+    (cond
+      (:help options) {:exit-message (help summary) :ok? true}
+      errors {:exit-message errors}
+      (seq arguments)
+      {:action (first arguments) :sources (rest arguments) :options options}
+      :else {:exit-message (help summary)})))
 
-  Example:
+(defn exit
+  [status msg]
+  (println msg)
+  (System/exit status))
 
-  ```
-  (class (xdmvalue->object (xpath/select \"<num>1</num>\" \"xs:integer(num)\")))
-  ;;=> java.math.BigInteger
-  ```"
-  [value]
-  (if (.isAtomicValue value)
-    (.getValue value)
-    (.getStringValue value)))
+(defn -main [& args]
+  (let [{:keys [action sources options exit-message ok?]} (validate-args args)]
+    (if exit-message
+      (exit (if ok? 0 1) exit-message)
+      (case action
+        "xslt"
+        (doall
+          (let [executables (map xslt/compile-edn (:edn options))]
+            (map (fn [source]
+                   (let [source-file (io/file source)]
+                     (xslt/transform-to-file
+                       (map xslt/compile-edn (:edn options))
+                       (:parameters options)
+                       source-file
+                       (get-output-file source-file))))
+                 sources)))))))
+

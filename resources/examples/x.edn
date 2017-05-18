@@ -2,5 +2,5 @@
                   :xmlns/xs "http://www.w3.org/2001/XMLSchema"
                   :exclude-result-prefixes "xs"}
  [:xsl/param {:name "p" :as "xs:integer"}]
- [:xsl/template {:match "a"} [:b [:xsl/value-of {:select "$p"}]]]
- [:xsl/template {:match "x"} [:y]]]
+ [:xsl/template {:match "b"} [:c [:xsl/value-of {:select "$p * 2"}]]]
+ [:xsl/template {:match "y"} [:z]]]

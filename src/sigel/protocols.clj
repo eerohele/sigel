@@ -1,6 +1,6 @@
 (ns sigel.protocols
   "Protocols for converting Clojure values into objects Saxon understands."
-  (:require [sigel.core :as saxon])
+  (:require [sigel.saxon :as saxon])
   (:import (javax.xml.transform.stream StreamSource)
            (net.sf.saxon.s9api QName XdmNode XdmValue XdmAtomicValue)
            (java.io StringReader File)

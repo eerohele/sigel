@@ -9,7 +9,7 @@
 
 (deftest xslt-compile-from-edn
   (let [stylesheet (-> "examples/a.edn" io/resource xslt/compile-edn)]
-    (is-xml-equal (xslt/transform stylesheet "<a/>") ["<b/>"])))
+    (is-xml-equal (xslt/transform stylesheet {:p 1} "<a/>") ["<b>1</b>"])))
 
 (deftest xslt-compile-from-source
   (let [stylesheet

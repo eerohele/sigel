@@ -3,7 +3,7 @@
             [sigel.test-utils :refer :all]
             [sigel.protocols :refer :all]
             [sigel.xpath.core :as xpath]
-            [sigel.core :as saxon]))
+            [sigel.saxon :as saxon]))
 
 (deftest set-default-xpath-namespace
   (let [compiler

@@ -40,7 +40,7 @@
 
   [QNameable]: sigel.protocols.html#var-QNameable
   [XMLValue]: sigel.protocols.html#var-XMLValue"
-  (:require [sigel.core :as saxon]
+  (:require [sigel.saxon :as saxon]
             [sigel.protocols :refer :all])
   (:refer-clojure :exclude [ns])
   (:import

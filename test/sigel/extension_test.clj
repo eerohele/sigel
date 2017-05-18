@@ -3,7 +3,7 @@
             [sigel.protocols :refer :all]
             [sigel.xpath.core :as xpath]
             [sigel.extension :as ext]
-            [sigel.core :as saxon]
+            [sigel.saxon :as saxon]
             [sigel.xslt.core :as xslt]
             [sigel.xslt.elements :as xsl]
             [sigel.test-utils :refer :all]))

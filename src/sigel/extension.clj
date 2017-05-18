@@ -3,7 +3,7 @@
   (:gen-class)
   (:require [sigel.utils :as u]
             [sigel.protocols :refer :all]
-            [sigel.core :as saxon])
+            [sigel.saxon :as saxon])
   (:import (net.sf.saxon.s9api ExtensionFunction
                                ItemType
                                OccurrenceIndicator

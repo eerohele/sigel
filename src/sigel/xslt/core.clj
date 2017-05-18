@@ -69,7 +69,7 @@
     (xsl/template {:match \"a\"} [::my-ns/b]))
   ```"
   (:require [clojure.data.xml :as xml]
-            [sigel.core :as saxon]
+            [sigel.saxon :as saxon]
             [sigel.protocols :refer :all]
             [sigel.utils :as u]
             [clojure.edn :as edn]
