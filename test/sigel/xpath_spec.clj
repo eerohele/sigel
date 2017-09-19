@@ -1,6 +1,6 @@
 (ns sigel.xpath-spec
-  (:require [clojure.spec :as s]
-            [clojure.spec.test :as stest]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.spec.test.alpha :as spec-test]
             [sigel.xpath.core :as xpath]
             [sigel.protocols :refer :all])
   (:import (net.sf.saxon.s9api XPathCompiler XdmValue)))
@@ -36,7 +36,7 @@
 (s/fdef xpath/value-of
         :args ::xpath-fn-args :ret string?)
 
-(stest/instrument `xpath/select)
-(stest/instrument `xpath/match)
-(stest/instrument `xpath/is?)
-(stest/instrument `xpath/value-of)
+(spec-test/instrument `xpath/select)
+(spec-test/instrument `xpath/match)
+(spec-test/instrument `xpath/is?)
+(spec-test/instrument `xpath/value-of)
