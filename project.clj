@@ -6,13 +6,13 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0-alpha15"]
                  [org.clojure/data.xml "0.2.0-alpha2"]
-                 [net.sf.saxon/Saxon-HE "9.7.0-18"]
+                 [net.sf.saxon/Saxon-HE "9.8.0-4"]
                  [org.clojure/tools.cli "0.3.5"]]
   :main ^:skip-aot sigel.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[org.clojure/test.check "0.9.0"]
-                                  [org.xmlunit/xmlunit-core "2.3.0"]
+                                  [org.xmlunit/xmlunit-core "2.5.0"]
                                   [criterium "0.4.4"]]}}
   :plugins [[lein-cljfmt "0.5.6"]
             [lein-codox "0.10.3"]
