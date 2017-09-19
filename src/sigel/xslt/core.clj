@@ -269,7 +269,7 @@
                           (io/file \"/tmp/b.xml\")
   ```"
   ([executables params source target]
-   (let [serializer  (.newSerializer saxon/processor target)]
+   (let [serializer (.newSerializer saxon/processor target)]
      (pipeline (sequentify executables) params source serializer)))
   ([executables source target]
    (transform-to-file executables nil source target)))
