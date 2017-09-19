@@ -12,13 +12,15 @@
 (s/def ::xpath-expression string?)
 (s/def ::xpath-compiler (partial instance? XPathCompiler))
 (s/def ::xdmvalue (partial instance? XdmValue))
+(s/def ::qnameable (partial satisfies? QNameable))
+(s/def ::xml-value (partial satisfies? XMLValue))
 
 (s/def ::bindings
-  (s/nilable (s/map-of (partial satisfies? QNameable) (partial satisfies? XMLValue))))
+  (s/nilable (s/map-of ::qnameable ::xml-value)))
 
 (s/def ::xpath-fn-args
   (s/cat :compiler (s/? ::xpath-compiler)
-         :context ::xdmvalue
+         :context ::xml-value
          :expression ::xpath-expression
          :bindings (s/? ::bindings)))
 
@@ -34,8 +36,7 @@
 (s/fdef xpath/value-of
         :args ::xpath-fn-args :ret string?)
 
-(comment
-  (stest/instrument `xpath/select)
-  (stest/instrument `xpath/match)
-  (stest/instrument `xpath/is?)
-  (stest/instrument `xpath/value-of))
+(stest/instrument `xpath/select)
+(stest/instrument `xpath/match)
+(stest/instrument `xpath/is?)
+(stest/instrument `xpath/value-of)
