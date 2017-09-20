@@ -9,7 +9,7 @@ Sigel «ᛋ» is a Clojure interface to the XSLT and XPath bits of [Saxon].
 
 Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 
-### Example
+### Examples
 
 ```clojure
 (require '[sigel.xslt.core :as xslt]
@@ -69,7 +69,7 @@ You can also execute XSLT transformations written in plain old XML:
 
 Select things in an XML file with XPath.
 
-### Example
+### Examples
 
 ```clojure
 (require '[sigel.xpath.core :as xpath])
@@ -84,6 +84,23 @@ Select things in an XML file with XPath.
 ;; object.
 (xpath/value-of "<num>1</num>" "xs:int(num)")
 ;;=> 1
+```
+
+## XML
+
+Every function in this library that takes XML as input accepts any object that implements [the `XMLSource` protocol](https://github.com/eerohele/sigel/blob/master/src/sigel/protocols.clj).
+
+### Examples
+
+```clojure
+;; java.lang.String
+(xpath/select "<a><b/><c/></a>" "a/b")
+
+;; java.io.File
+(xpath/select (clojure.java.io/as-file "a.xml") "a/b")
+
+;; java.net.URI
+(xpath/select (clojure.java.io/as-url "file:///tmp/a.xml") "a/b")
 ```
 
 ## License
