@@ -1,6 +1,8 @@
 Sigel
 =====
 
+( [Changelog] | **[API]** )
+
 Sigel «ᛋ» is a Clojure interface to the XSLT and XPath bits of [Saxon].
 
 ## XSLT
@@ -92,6 +94,9 @@ Distributed under the [Eclipse Public License][EPL] either version 1.0 or (at
 your option) any later version.
 
 Saxon is licensed under the [Mozilla Public License][MPL].
+
+[API]: https://eerohele.github.io/sigel
+[CHANGELOG]: https://github.com/eerohele/sigel/blob/master/CHANGELOG.md
 
 [EPL]: https://www.eclipse.org/legal/epl-v10.html
 [MPL]: https://www.mozilla.org/en-US/MPL
