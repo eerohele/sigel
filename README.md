@@ -70,7 +70,7 @@ Select things in an XML file with XPath.
 ### Example
 
 ```clojure
-(require '[sigel.xpath :as xpath])
+(require '[sigel.xpath.core :as xpath])
 
 ;; Select nodes with XPath.
 (seq (xpath/select "<a><b/><c/></a>" "a/b | a/c"))
