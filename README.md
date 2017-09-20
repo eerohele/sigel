@@ -1,6 +1,8 @@
 Sigel
 =====
 
+[![Clojars Project](https://img.shields.io/clojars/v/me.flowthing/sigel.svg)](https://clojars.org/me.flowthing/sigel)
+
 ( [Changelog] | **[API]** )
 
 Sigel «ᛋ» is a Clojure interface to the XSLT and XPath bits of [Saxon].
