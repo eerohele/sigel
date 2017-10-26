@@ -30,7 +30,7 @@
     (.build saxon/builder (StreamSource. uri)))
   URL
   (build [^URL url]
-    (.build saxon/builder (StreamSource. (.toString url)))))
+    (.build saxon/builder (StreamSource. (str url)))))
 
 (defprotocol QNameable
   "A protocol for things that can be converted into a

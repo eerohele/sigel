@@ -22,13 +22,14 @@
 
 (defn help
   [options-summary]
-  (->> ["Sigel."
-        ""
-        "Usage: sigel [options] action source(s)"
-        ""
-        "Options:"
-        options-summary]
-       (string/join \newline)))
+  (string/join
+    \newline
+    ["Sigel."
+     ""
+     "Usage: sigel [options] action source(s)"
+     ""
+     "Options:"
+     options-summary]))
 
 (def user-dir (System/getProperty "user.dir"))
 
