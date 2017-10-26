@@ -60,10 +60,7 @@ You can also execute XSLT transformations written in plain old XML:
 ```
 
 ```clojure
-(def stylesheet
-  (StreamSource. (-> "a-to-b.xsl" io/file io/input-stream)))
-
-(xslt/transform (xslt/compile stylesheet) "<a/>")
+(xslt/transform (xslt/compile-xslt-file "a-to-b.xsl") "<a/>")
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x2bda7fdc "<b/>"]
 ```
 

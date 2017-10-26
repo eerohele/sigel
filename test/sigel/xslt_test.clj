@@ -11,6 +11,9 @@
   (let [stylesheet (-> "examples/a.edn" io/resource xslt/compile-edn)]
     (is-xml-equal (xslt/transform stylesheet {:p 1} "<a/>") ["<b>1</b>"])))
 
+(deftest xslt-compile-xslt-file
+  (is-xml-equal (xslt/transform (xslt/compile-xslt-file "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"]))
+
 (deftest xslt-compile-from-source
   (let [stylesheet
         (str "<xsl:stylesheet version=\"3.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"

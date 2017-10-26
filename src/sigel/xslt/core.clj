@@ -69,6 +69,7 @@
     (xsl/template {:match \"a\"} [::my-ns/b]))
   ```"
   (:require [clojure.data.xml :as xml]
+            [clojure.java.io :as io]
             [sigel.saxon :as saxon]
             [sigel.protocols :refer :all]
             [sigel.utils :as u]
@@ -77,6 +78,7 @@
             [clojure.walk :as walk]
             [clojure.java.io :as io])
   (:import (java.io StringWriter PushbackReader)
+           (javax.xml.transform.stream StreamSource)
            (net.sf.saxon.s9api XsltCompiler Serializer XsltExecutable XdmDestination Xslt30Transformer)))
 
 (defn compiler
@@ -132,6 +134,11 @@
        (keyword "xmlns.http%3A%2F%2Fwww.w3.org%2F1999%2FXSL%2FTransform" (name %))
        %)
     stylesheet))
+
+(defn compile-xslt-file
+  "Compile a stylesheet defined in an XML file."
+  [path]
+  (compile-source (StreamSource. (-> path io/file io/input-stream))))
 
 (defn compile-edn
   "Compile a stylesheet defined in an EDN file.
