@@ -92,16 +92,18 @@ Every function in this library that takes XML as input accepts any object that i
 ### Examples
 
 ```clojure
+(require '[clojure.java.io :as io])
+
 ;; java.lang.String
 (xpath/select "<a><b/><c/></a>" "a/b")
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x772300a6 "<b/>"]
 
 ;; java.io.File
-(xpath/select (clojure.java.io/as-file "/tmp/a.xml") "a/b")
+(xpath/select (io/as-file "/tmp/a.xml") "a/b")
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x5487f8c7 "<b/>"]
 
 ;; java.net.URL
-(xpath/select (clojure.java.io/as-url "http://www.xmlfiles.com/examples/note.xml") "/note/to")
+(xpath/select (io/as-url "http://www.xmlfiles.com/examples/note.xml") "/note/to")
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x79f4a8cb "<to>Tove</to>"]
 ```
 
