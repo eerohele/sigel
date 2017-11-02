@@ -66,7 +66,7 @@ You can also execute XSLT transformations written in plain old XML:
 
 ## XPath
 
-Select things in an XML file with XPath.
+Select things in an XML document with XPath.
 
 ### Examples
 
