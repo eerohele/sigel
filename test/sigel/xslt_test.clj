@@ -5,7 +5,8 @@
             [sigel.test-utils :refer :all]
             [sigel.utils :as u]
             [clojure.test :refer :all]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io])
+  (:refer-clojure :exclude [identity]))
 
 
 (deftest xslt-compile-from-edn
