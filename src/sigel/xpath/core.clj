@@ -44,9 +44,9 @@
             [sigel.protocols :refer :all])
   (:refer-clojure :exclude [ns])
   (:import
-   (net.sf.saxon.s9api Axis
-                       XdmValue)
-   (net.sf.saxon.pattern Pattern)))
+    (net.sf.saxon.s9api Axis
+                        XdmValue)
+    (net.sf.saxon.pattern Pattern)))
 
 
 ;; An XPath namespace composed of a string prefix and a string URI.
@@ -267,7 +267,7 @@
   "Make an XPath pattern from a string."
   ([compiler string]
    (let [static-context (static-context compiler)
-         package-data (package-data static-context)]
+         package-data   (package-data static-context)]
      (Pattern/make string static-context package-data)))
   ([string]
    (pattern *compiler* string)))

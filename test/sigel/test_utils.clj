@@ -6,7 +6,7 @@
 (defn- diff-builder
   [actual]
   (.ignoreWhitespace
-   (.checkForIdentical (DiffBuilder/compare (Input/fromString (str actual))))))
+    (.checkForIdentical (DiffBuilder/compare (Input/fromString (str actual))))))
 
 
 (defn is-xml-equal

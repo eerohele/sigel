@@ -20,8 +20,8 @@
                           :version                 3.0
                           :xmlns:xs                "http://www.w3.org/2001/XMLSchema"
                           :exclude-result-prefixes "xs"} a)
-                  identity
-                  xs))
+    identity
+    xs))
 
 
 (def identity-transformation (xslt3-identity nil))

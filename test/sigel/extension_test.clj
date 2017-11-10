@@ -22,7 +22,7 @@
 
 (deftest extension-function-node
   (let [compiler (xpath/compiler saxon/processor nil [(xpath/ns "local" "local")])
-        bar (build "<bar/>")]
+        bar      (build "<bar/>")]
     (ext/register-extension-function!
       compiler
       (ext/function ["local" "always-return-bar"]
@@ -33,12 +33,12 @@
 
 
 (deftest extension-function-xslt
-  (let [compiler (xslt/compiler)
+  (let [compiler   (xslt/compiler)
         stylesheet (xsl/stylesheet
                      {:version 3.0 :xmlns:local "local"}
                      (xsl/template {:match "foo"}
-                                   (xsl/copy
-                                     (xsl/value-of {:select "local:reverse(.)"}))))]
+                       (xsl/copy
+                         (xsl/value-of {:select "local:reverse(.)"}))))]
     (ext/register-extension-function!
       compiler
       (ext/function ["local" "reverse"]
