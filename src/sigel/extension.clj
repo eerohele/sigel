@@ -13,6 +13,7 @@
                                XPathCompiler
                                XsltCompiler)))
 
+
 (defn make-sequence-type
   "A wrapper for [`SequenceType/makeSequenceType`](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/SequenceType.html). Takes arguments in the reverse
   order to the original method because it's more pleasant to write
@@ -25,6 +26,7 @@
   (SequenceType/makeSequenceType
     (u/get-class-constant ItemType item-type)
     (u/get-class-constant OccurrenceIndicator occurrence-indicator)))
+
 
 (defn function
   "Define a Saxon integrated extension function.
@@ -61,6 +63,7 @@
         (if (instance? XdmItem result)
           result
           (XdmAtomicValue. result))))))
+
 
 (defn register-extension-function!
   "Register a Saxon integrated extension function.

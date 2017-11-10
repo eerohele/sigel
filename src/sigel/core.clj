@@ -8,6 +8,7 @@
             [clojure.string :as string]
             [sigel.xslt.core :as xslt]))
 
+
 (def cli-options
   [["-e"
     "--edn EDN"
@@ -18,6 +19,7 @@
     "A map of parameters to pass to every transformation. Example: {:foo 1}"
     :parse-fn edn/read-string]
    ["-h" "--help" "Show this help."]])
+
 
 (defn help
   [options-summary]
@@ -30,13 +32,16 @@
      "Options:"
      options-summary]))
 
+
 (def user-dir (System/getProperty "user.dir"))
+
 
 (defn- get-output-file
   [source]
   (let [dir (io/file user-dir (io/file "target"))]
     (.mkdir dir)
     (io/file dir (.getName source))))
+
 
 (defn- validate-args
   [args]
@@ -48,10 +53,12 @@
       {:action (first arguments) :sources (rest arguments) :options options}
       :else {:exit-message (help summary)})))
 
+
 (defn exit
   [status msg]
   (println msg)
   (System/exit status))
+
 
 (defn -main [& args]
   (let [{:keys [action sources options exit-message ok?]} (validate-args args)]

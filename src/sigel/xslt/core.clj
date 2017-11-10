@@ -81,10 +81,12 @@
            (javax.xml.transform.stream StreamSource)
            (net.sf.saxon.s9api XsltCompiler XdmDestination Xslt30Transformer)))
 
+
 (defn compiler
   "Create a new [XsltCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XsltCompiler.html)."
   []
   (.newXsltCompiler saxon/processor))
+
 
 (def ^:dynamic ^XsltCompiler *compiler*
   "A default XSLT compiler.
@@ -93,12 +95,14 @@
   instance when compiling a stylesheet, Sigel uses this instance."
   (compiler))
 
+
 (defn compile-source
   "Compile an XSLT stylesheet from a [Source](https://docs.oracle.com/javase/8/docs/api/javax/xml/transform/Source.html)."
   ([compiler stylesheet]
    (.compile compiler stylesheet))
   ([stylesheet]
    (compile-source *compiler* stylesheet)))
+
 
 (defn compile-sexp
   "Compile an XSLT stylesheet written in Clojure.
@@ -127,6 +131,7 @@
   ([stylesheet]
    (compile-sexp *compiler* stylesheet)))
 
+
 (defn- update-xsl-namespaces
   [stylesheet]
   (walk/postwalk
@@ -135,10 +140,12 @@
        %)
     stylesheet))
 
+
 (defn compile-xslt-file
   "Compile a stylesheet defined in an XML file."
   [path]
   (compile-source (StreamSource. (-> path io/file io/input-stream))))
+
 
 (defn compile-edn
   "Compile a stylesheet defined in an EDN file.
@@ -163,10 +170,12 @@
     [reader (PushbackReader. (io/reader path))]
     (-> (edn/read reader) update-xsl-namespaces compile-sexp)))
 
+
 (defn- ->param-map
   [params]
   (reduce merge
           (map (fn [[k v]] (hash-map (->qname k) (->xdmvalue v))) params)))
+
 
 (defn- get-transformer
   [executable params]
@@ -174,9 +183,11 @@
     (when (seq params) (.setStylesheetParameters transformer (->param-map params)))
     transformer))
 
+
 (def ^:private identity-xslt3-transformer
   (get-transformer
     (compile-sexp components/identity-transformation) nil))
+
 
 (defn- sequentify
   [x]
@@ -184,12 +195,14 @@
     x
     [x]))
 
+
 (defn apply-templates
   ([^Xslt30Transformer transformer source]
    (.applyTemplates transformer (build source)))
   ([transformer source destination]
    (.applyTemplates transformer (build source) destination)
    destination))
+
 
 (defn pipeline
   [[ex & exs] params source destination]
@@ -199,6 +212,7 @@
       (if (empty? exs)
         (apply-templates transformer source destination)
         (pipeline exs params (apply-templates transformer source) destination)))))
+
 
 (defn transform
   "Execute one or more XSLT transformations on the given source file.
@@ -255,6 +269,7 @@
      (pipeline (sequentify executables) params source (XdmDestination.))))
   ([executables source]
    (transform executables nil source)))
+
 
 (defn transform-to-file
   "Execute one or more XSLT transformations on the given source file.

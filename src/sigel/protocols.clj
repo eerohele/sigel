@@ -8,10 +8,12 @@
            (javax.xml.transform Source)
            (clojure.lang Keyword APersistentVector)))
 
+
 (defprotocol XMLSource
   "A protocol for things that can be converted into a Saxon
   [XdmNode](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XdmNode.html)."
   (build [source]))
+
 
 (extend-protocol XMLSource
   XdmNode
@@ -32,10 +34,12 @@
   (build [^URL url]
     (.build saxon/builder (StreamSource. (str url)))))
 
+
 (defprotocol QNameable
   "A protocol for things that can be converted into a
   [QName](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/QName.html)."
   (->qname [name]))
+
 
 (extend-protocol QNameable
   QName
@@ -47,10 +51,12 @@
   APersistentVector
   (->qname [[namespace name]] (QName. namespace name)))
 
+
 (defprotocol XMLValue
   "A protocol for things that can be converted into a Saxon
   [XdmValue](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XdmValue.html)."
   (->xdmvalue [value]))
+
 
 (extend-protocol XMLValue
   XdmValue

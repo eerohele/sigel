@@ -48,28 +48,34 @@
                        XdmValue)
    (net.sf.saxon.pattern Pattern)))
 
+
 ;; An XPath namespace composed of a string prefix and a string URI.
 (defrecord Namespace [prefix uri])
+
 
 (defn static-context
   "Get the static context of an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html)."
   [compiler]
   (.getUnderlyingStaticContext compiler))
 
+
 (defn package-data
   "Get the package data of a StaticContext."
   [static-context]
   (.getPackageData static-context))
+
 
 (defn early-evaluation-context
   "Make a new XPath evaluation context from a static context."
   [static-context]
   (.makeEarlyEvaluationContext static-context))
 
+
 (defn ns
   "Create a Namespace record composed of a string prefix and a string URI."
   [prefix uri]
   (->Namespace prefix uri))
+
 
 (defn set-default-namespace!
   "Set the default namespace URI of an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html).
@@ -92,10 +98,12 @@
     (.declareNamespace compiler "" uri))
   compiler)
 
+
 (defn default-namespace
   "Get the default namespace URI of an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html)."
   [compiler]
   (.. compiler (getUnderlyingStaticContext) (getDefaultElementNamespace)))
+
 
 (defn declare-namespace!
   "Teach an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html)
@@ -107,6 +115,7 @@
    (doto compiler (.declareNamespace prefix uri)))
   ([compiler ns-decl]
    (declare-namespace! compiler (:prefix ns-decl) (:uri ns-decl))))
+
 
 (defn compiler
   "Make a new [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html).
@@ -120,12 +129,14 @@
      compiler))
   ([] (compiler saxon/processor nil nil)))
 
+
 (def ^:dynamic *compiler*
   "A default XPath compiler.
 
   If you don't pass in your own [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html)
   instance when compiling a stylesheet, Sigel uses this instance."
   (compiler))
+
 
 (defn set-variable
   "Set a variable on an [XPathSelector](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathSelector.html).
@@ -136,6 +147,7 @@
   [selector [name value]]
   (doto selector (.setVariable (->qname name) (->xdmvalue value))))
 
+
 (defn declare-variables!
   "Declare variables on an [XPathCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XPathCompiler.html).
 
@@ -144,6 +156,7 @@
   [compiler variables]
   (doseq [[name _] variables] (.declareVariable compiler (->qname name)))
   compiler)
+
 
 (defn- bind-selector
   [compiler xpath-type pattern context bindings]
@@ -154,10 +167,12 @@
     (doseq [binding bindings] (set-variable selector binding))
     (doto selector (.setContextItem (build context)))))
 
+
 (defn ->seq
   "Return a seq on the nodes in the given document."
   [node]
   (iterator-seq (.axisIterator node Axis/DESCENDANT_OR_SELF)))
+
 
 (defn match
   "Return a sequence of values that match an XPath pattern in the given XML
@@ -184,6 +199,7 @@
   ([context pattern]
    (match *compiler* context pattern nil)))
 
+
 (defn is?
   "Given an XML context and an XPath expression, return a boolean that
   indicates whether the expression evaluates to true in that context.
@@ -201,6 +217,7 @@
      (bind-selector compiler :expression expression context bindings)))
   ([context expression]
    (is? *compiler* context expression nil)))
+
 
 (defn select
   "Return a sequence of values that match an XPath expression in the given
@@ -225,6 +242,7 @@
   ([context expression]
    (select *compiler* context expression nil)))
 
+
 (defn value-of
   "Return the value of an XPath expression evaluated in the given context.
 
@@ -244,6 +262,7 @@
   ([context expression]
    (value-of *compiler* context expression nil)))
 
+
 (defn pattern
   "Make an XPath pattern from a string."
   ([compiler string]
@@ -252,6 +271,7 @@
      (Pattern/make string static-context package-data)))
   ([string]
    (pattern *compiler* string)))
+
 
 ;; FIXME: Bindings?
 (defn matches?

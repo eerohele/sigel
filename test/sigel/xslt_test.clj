@@ -7,12 +7,15 @@
             [clojure.test :refer :all]
             [clojure.java.io :as io]))
 
+
 (deftest xslt-compile-from-edn
   (let [stylesheet (-> "examples/a.edn" io/resource xslt/compile-edn)]
     (is-xml-equal (xslt/transform stylesheet {:p 1} "<a/>") ["<b>1</b>"])))
 
+
 (deftest xslt-compile-xslt-file
   (is-xml-equal (xslt/transform (xslt/compile-xslt-file "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"]))
+
 
 (deftest xslt-compile-from-source
   (let [stylesheet
@@ -29,14 +32,17 @@
     (is-xml-equal (xslt/transform identity-transform "<a/>")
                   ["<a/>"])))
 
+
 (deftest xslt-single-transformation
   (let [xslt (xsl/stylesheet {:version 3.0} (xsl/template {:match "a"} [:b]))]
     (is-xml-equal
      (xslt/transform (xslt/compile-sexp xslt) "<a/>")
      ["<b/>"])))
 
+
 (deftest xslt-passing-nil-executable-returns-argument
   (is-xml-equal (xslt/transform nil "<a/>") ["<a/>"]))
+
 
 (deftest xslt-params
   (let [xslt (xsl/stylesheet {:version 3.0
@@ -49,6 +55,7 @@
     (is-xml-equal
      (xslt/transform (xslt/compile-sexp xslt) {:factor 10} "<num>1</num>")
      ["<num>10</num>"])))
+
 
 (deftest xslt-pipeline
   (let [xslt-1      (xsl/stylesheet {:version 3.0}

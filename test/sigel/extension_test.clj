@@ -8,6 +8,7 @@
             [sigel.xslt.elements :as xsl]
             [sigel.test-utils :refer :all]))
 
+
 (deftest extension-function-atomic
   (let [compiler (xpath/compiler saxon/processor nil [(xpath/ns "local" "local")])]
     (ext/register-extension-function!
@@ -17,6 +18,7 @@
                     [:one :double]
                     (fn [x] (double (* x 2)))))
     (is (= 2.0 (xpath/value-of compiler "<num>1</num>" "local:double(xs:int(num))" nil)))))
+
 
 (deftest extension-function-node
   (let [compiler (xpath/compiler saxon/processor nil [(xpath/ns "local" "local")])
@@ -28,6 +30,7 @@
                     [:one :any-node]
                     (fn [_] bar)))
     (is (= bar (xpath/select compiler "<foo/>" "local:always-return-bar(.)" nil)))))
+
 
 (deftest extension-function-xslt
   (let [compiler (xslt/compiler)
