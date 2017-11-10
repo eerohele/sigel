@@ -6,8 +6,7 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.string :as string]
-            [sigel.xslt.core :as xslt])
-  (:import (java.io File)))
+            [sigel.xslt.core :as xslt]))
 
 (def cli-options
   [["-e"

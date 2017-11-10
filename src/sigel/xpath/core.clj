@@ -45,11 +45,7 @@
   (:refer-clojure :exclude [ns])
   (:import
    (net.sf.saxon.s9api Axis
-                       XdmAtomicValue
-                       XdmNode
-                       XdmValue
-                       XPathSelector
-                       XPathCompiler)
+                       XdmValue)
    (net.sf.saxon.pattern Pattern)))
 
 ;; An XPath namespace composed of a string prefix and a string URI.

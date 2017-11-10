@@ -79,7 +79,7 @@
             [clojure.java.io :as io])
   (:import (java.io StringWriter PushbackReader)
            (javax.xml.transform.stream StreamSource)
-           (net.sf.saxon.s9api XsltCompiler Serializer XsltExecutable XdmDestination Xslt30Transformer)))
+           (net.sf.saxon.s9api XsltCompiler XdmDestination Xslt30Transformer)))
 
 (defn compiler
   "Create a new [XsltCompiler](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/XsltCompiler.html)."
