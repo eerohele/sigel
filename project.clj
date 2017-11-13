@@ -20,4 +20,4 @@
             [lein-marginalia "0.9.0"]
             [com.jakemccrary/lein-test-refresh "0.19.0"]]
   :codox {:metadata {:doc/format :markdown}
-          :output-path "target/doc"})
+          :output-path "docs"})
