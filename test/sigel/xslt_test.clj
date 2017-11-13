@@ -15,7 +15,7 @@
 
 
 (deftest xslt-compile-xslt-file
-  (is-xml-equal (xslt/transform (xslt/compile-xslt-file "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"]))
+  (is-xml-equal (xslt/transform (xslt/compile-xslt "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"]))
 
 
 (deftest xslt-compile-from-source
