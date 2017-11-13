@@ -142,7 +142,7 @@
 
 
 (defn compile-xslt
-  "Compile a stylesheet defined in an XML file."
+  "Compile a stylesheet defined in an XSLT file."
   [path]
   (compile-source (StreamSource. (-> path io/file io/input-stream))))
 
