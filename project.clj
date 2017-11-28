@@ -1,4 +1,4 @@
-(defproject me.flowthing/sigel "0.1.0"
+(defproject me.flowthing/sigel "0.2.0"
   :description
     "Sigel «ᛋ» is a Clojure interface to the XSLT and XPath bits of Saxon."
   :url "http://github.com/eerohele/sigel"
