@@ -4,9 +4,9 @@
   :url "http://github.com/eerohele/sigel"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0-beta1"]
+  :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/data.xml "0.2.0-alpha2"]
-                 [net.sf.saxon/Saxon-HE "9.8.0-4"]
+                 [net.sf.saxon/Saxon-HE "9.8.0-6"]
                  [org.clojure/tools.cli "0.3.5"]]
   :main ^:skip-aot sigel.core
   :target-path "target/%s"
