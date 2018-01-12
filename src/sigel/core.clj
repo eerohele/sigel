@@ -67,13 +67,11 @@
       (case action
         "xslt"
         (doall
-          (let [executables (map xslt/compile-edn (:edn options))]
-            (map (fn [source]
-                   (let [source-file (io/file source)]
-                     (xslt/transform-to-file
-                       (map xslt/compile-edn (:edn options))
-                       (:parameters options)
-                       source-file
-                       (get-output-file source-file))))
-                 sources)))))))
+          (map (fn [source]
+                 (let [source-file (io/file source)
+                       executables (map xslt/compile-edn (:edn options))
+                       parameters  (:parameters options)
+                       output-file (get-output-file source-file)]
+                   (xslt/transform-to-file executables parameters source-file output-file)))
+               sources))))))
 
