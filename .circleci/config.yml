@@ -12,4 +12,4 @@ jobs:
 
     steps:
       - checkout
-      - run: clj -Atest
+      - run: clojure -Atest
