@@ -1,0 +1,12 @@
+{:aliases {:run  {:main-opts ["-m" "sigel.core"]}
+           :test {:extra-deps  {org.clojure/test.check    {:mvn/version "RELEASE"}
+                                com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner",
+                                                           :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}
+                                criterium                 {:mvn/version "0.4.4"}
+                                org.xmlunit/xmlunit-core  {:mvn/version "2.5.0"}}
+                  :extra-paths ["test" "resources"]
+                  :main-opts   ["-m" "cognitect.test-runner" "-d" "test"]}}
+ :deps    {net.sf.saxon/Saxon-HE {:mvn/version "RELEASE"}
+           org.clojure/clojure   {:mvn/version "1.9.0"}
+           org.clojure/data.xml  {:mvn/version "0.2.0-alpha2"}
+           org.clojure/tools.cli {:mvn/version "0.3.5"}}}

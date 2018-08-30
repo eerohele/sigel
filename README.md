@@ -117,7 +117,7 @@ your option) any later version.
 
 Saxon is licensed under the [Mozilla Public License][MPL].
 
-[API]: https://eerohele.github.io/sigel
+[API]: https://cljdoc.xyz/d/me.flowthing/sigel/CURRENT
 [CHANGELOG]: https://github.com/eerohele/sigel/blob/master/CHANGELOG.md
 
 [EPL]: https://www.eclipse.org/legal/epl-v10.html

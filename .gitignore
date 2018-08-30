@@ -1,7 +1,7 @@
 .DS_Store
 
 ### Clojure ###
-pom.xml
+.cpcache/
 pom.xml.asc
 *.jar
 *.class
