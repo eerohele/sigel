@@ -37,8 +37,8 @@
         stylesheet (xsl/stylesheet
                      {:version 3.0 :xmlns:local "local"}
                      (xsl/template {:match "foo"}
-                       (xsl/copy
-                         (xsl/value-of {:select "local:reverse(.)"}))))]
+                                   (xsl/copy
+                                     (xsl/value-of {:select "local:reverse(.)"}))))]
     (ext/register-extension-function!
       compiler
       (ext/function ["local" "reverse"]

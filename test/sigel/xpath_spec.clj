@@ -29,19 +29,19 @@
 
 
 (s/fdef xpath/select
-        :args ::xpath-fn-args :ret ::xdmvalue)
+  :args ::xpath-fn-args :ret ::xdmvalue)
 
 
 (s/fdef xpath/match
-        :args ::xpath-fn-args :ret ::xdmvalue)
+  :args ::xpath-fn-args :ret ::xdmvalue)
 
 
 (s/fdef xpath/is?
-        :args ::xpath-fn-args :ret boolean?)
+  :args ::xpath-fn-args :ret boolean?)
 
 
 (s/fdef xpath/value-of
-        :args ::xpath-fn-args :ret string?)
+  :args ::xpath-fn-args :ret string?)
 
 
 (spec-test/instrument `xpath/select)
