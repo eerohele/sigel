@@ -9,8 +9,9 @@
     (.checkForIdentical (DiffBuilder/compare (Input/fromString (str actual))))))
 
 
-(defn is-xml-equal
+(defn xml-equal?
   [actual expected]
-  (doseq [[a e] (map vector actual expected)]
-    (let [diff (.build (.withTest (diff-builder a) (Input/fromString e)))]
-      (is (not (.hasDifferences diff)) (.toString diff)))))
+  (every? true?
+          (doseq [[a e] (map vector actual expected)]
+            (let [diff (.build (.withTest (diff-builder a) (Input/fromString e)))]
+              (not (.hasDifferences diff))))))

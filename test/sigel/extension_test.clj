@@ -46,6 +46,6 @@
                     [:one :string]
                     (fn [string] (clojure.string/join (reverse string)))))
 
-    (is-xml-equal
-      (xslt/transform (xslt/compile-sexp compiler stylesheet) "<foo>bar</foo>")
-      ["<foo>rab</foo>"])))
+    (is (xml-equal?
+          (xslt/transform (xslt/compile-sexp compiler stylesheet) "<foo>bar</foo>")
+          ["<foo>rab</foo>"]))))
