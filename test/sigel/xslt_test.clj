@@ -18,9 +18,25 @@
   (is (xml-equal? (xslt/transform (xslt/compile-xslt "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"])))
 
 
-(deftest xslt-compile-from-source
+(deftest xslt-3.0-compile-from-source
   (let [stylesheet
         (str "<xsl:stylesheet version=\"3.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
+             "  <xsl:template match=\"@* | node()\">"
+             "    <xsl:copy>"
+             "      <xsl:apply-templates select=\"@* | node()\"/>"
+             "    </xsl:copy>"
+             "  </xsl:template>"
+             "</xsl:stylesheet>")
+        identity-transform
+        (xslt/compile-source
+          (u/string->source stylesheet))]
+    (is (xml-equal? (xslt/transform identity-transform "<a/>")
+                    ["<a/>"]))))
+
+
+(deftest xslt-1.0-compile-from-source
+  (let [stylesheet
+        (str "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
              "  <xsl:template match=\"@* | node()\">"
              "    <xsl:copy>"
              "      <xsl:apply-templates select=\"@* | node()\"/>"
