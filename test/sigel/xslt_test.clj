@@ -14,8 +14,10 @@
     (is (xml-equal? (xslt/transform stylesheet {:p 1} "<a/>") ["<b>1</b>"]))))
 
 
-(deftest xslt-compile-xslt-file
-  (is (xml-equal? (xslt/transform (xslt/compile-xslt "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"])))
+(deftest xslt-compile-xslt
+  (is (xml-equal? (xslt/transform (xslt/compile-xslt "resources/examples/a-to-b.xsl") "<a/>") ["<b/>"]))
+  (is (xml-equal? (xslt/transform (xslt/compile-xslt (io/file "resources/examples/a-to-b.xsl")) "<a/>") ["<b/>"]))
+  (is (xml-equal? (xslt/transform (xslt/compile-xslt (io/resource "examples/a-to-b.xsl")) "<a/>") ["<b/>"])))
 
 
 (deftest xslt-3.0-compile-from-source

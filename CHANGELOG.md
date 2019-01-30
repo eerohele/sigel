@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.2.2] - 2019-01-30
+- Improve support for loading a stylesheet from the classpath #2
+
 ## [0.2.1] - 2019-01-19
 - Fix XSLT 1.0 compatibility #1
 

@@ -142,9 +142,12 @@
 
 
 (defn compile-xslt
-  "Compile a stylesheet defined in an XSLT file."
-  [path]
-  (compile-source (StreamSource. (-> path io/file io/input-stream))))
+  "Compile a stylesheet defined in an XSLT resource.
+
+  The input must be something that [[io/input-stream]] can coerce into an input
+  stream."
+  [input]
+  (-> input io/input-stream StreamSource. compile-source))
 
 
 (defn compile-edn
