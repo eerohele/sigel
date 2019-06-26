@@ -1,17 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.2.3] – 2019-06-26
+## 0.2.3 (2019-06-26)
 - Fix support for non-Latin characters in sexp stylesheets #3
 
-## [0.2.2] - 2019-01-30
+## 0.2.2 (2019-01-30)
 - Improve support for loading a stylesheet from the classpath #2
 
-## [0.2.1] - 2019-01-19
+## 0.2.1 (2019-01-19)
 - Fix XSLT 1.0 compatibility #1
 
-## [0.2.0] - 2017-11-28
+## 0.2.0 (2017-11-28)
 - Add `compile-xslt` function
 
-## [0.1.0] - 2017-09-19
+## 0.1.0 (2017-09-19)
 - Initial release
