@@ -12,6 +12,6 @@
 (defn xml-equal?
   [actual expected]
   (every? true?
-          (doseq [[a e] (map vector actual expected)]
+          (for [[a e] (map vector actual expected)]
             (let [diff (.build (.withTest (diff-builder a) (Input/fromString e)))]
               (not (.hasDifferences diff))))))
