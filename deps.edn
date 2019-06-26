@@ -1,4 +1,6 @@
-{:aliases {:run  {:main-opts ["-m" "sigel.core"]}
+{:paths   ["src" "resources"]
+
+ :aliases {:run  {:main-opts ["-m" "sigel.core"]}
            :test {:extra-deps  {org.clojure/test.check    {:mvn/version "RELEASE"}
                                 com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner",
                                                            :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}
