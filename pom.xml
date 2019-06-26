@@ -27,17 +27,12 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.gfredericks</groupId>
-      <artifactId>user.clj</artifactId>
-      <version>0.1.0</version>
+      <version>1.10.1</version>
     </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
-      <version>9.8.0-14</version>
+      <version>9.8.0-15</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
@@ -47,7 +42,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.cli</artifactId>
-      <version>0.3.5</version>
+      <version>0.4.2</version>
     </dependency>
   </dependencies>
         
