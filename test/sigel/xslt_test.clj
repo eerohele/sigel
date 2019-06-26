@@ -90,3 +90,11 @@
     (is (xml-equal?
           (map (partial xslt/transform executables) ["<a/>" "<w/>"])
           ["<d/>" "<z/>"]))))
+
+(deftest issue-3
+  (let [xslt (xsl/stylesheet {:version 3.0}
+                             (xsl/template {:match "para[matches(., 'Пам')]"}
+                                           [:output]))]
+    (is (xml-equal?
+          (xslt/transform (xslt/compile-sexp xslt) "<para>...Пам...</para>")
+          ["<output/>"]))))

@@ -2,13 +2,13 @@
   "A set of utility functions mostly for internal use."
   (:require [clojure.string :as string])
   (:import (javax.xml.transform.stream StreamSource)
-           (java.io StringBufferInputStream)))
+           (java.io StringReader)))
 
 
 (defn string->source
   "Build a StreamSource from a String."
   [string]
-  (StreamSource. (StringBufferInputStream. string)))
+  (StreamSource. (StringReader. string)))
 
 
 (defn replace-str
