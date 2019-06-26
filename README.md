@@ -61,7 +61,7 @@ You can also execute XSLT transformations written in plain old XML:
 ```
 
 ```clojure
-(xslt/transform (xslt/compile-xslt-file "a-to-b.xsl") "<a/>")
+(xslt/transform (xslt/compile-xslt "a-to-b.xsl") "<a/>")
 ;;=> #object[net.sf.saxon.s9api.XdmNode 0x2bda7fdc "<b/>"]
 ```
 
