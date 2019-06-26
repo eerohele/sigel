@@ -188,8 +188,9 @@
 
 
 (def ^:private identity-xslt3-transformer
-  (get-transformer
-    (compile-sexp components/identity-transformation) nil))
+  (delay
+    (get-transformer
+      (compile-sexp components/identity-transformation) nil)))
 
 
 (defn- sequentify
@@ -210,7 +211,7 @@
 (defn pipeline
   [[ex & exs] params source destination]
   (if (nil? ex)
-    (apply-templates identity-xslt3-transformer source destination)
+    (apply-templates @identity-xslt3-transformer source destination)
     (let [transformer (get-transformer ex params)]
       (if (empty? exs)
         (apply-templates transformer source destination)
