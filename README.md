@@ -2,7 +2,6 @@ Sigel
 =====
 
 [![Clojars Project](https://img.shields.io/clojars/v/me.flowthing/sigel.svg)](https://clojars.org/me.flowthing/sigel)
-[![CircleCI](https://circleci.com/gh/eerohele/sigel.svg?style=svg)](https://circleci.com/gh/eerohele/sigel)
 
 ( [Changelog] | **[API]** )
 
