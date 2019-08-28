@@ -3,7 +3,7 @@
  :aliases {:run  {:main-opts ["-m" "sigel.core"]}
            :test {:extra-deps  {org.clojure/test.check    {:mvn/version "RELEASE"}
                                 com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner",
-                                                           :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}
+                                                           :sha     "cb96e80f6f3d3b307c59cbeb49bb0dcb3a2a780b"}
                                 criterium                 {:mvn/version "0.4.4"}
                                 org.xmlunit/xmlunit-core  {:mvn/version "2.5.0"}}
                   :extra-paths ["test" "resources"]
