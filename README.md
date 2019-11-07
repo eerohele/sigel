@@ -109,7 +109,7 @@ Every function in this library that takes XML as input accepts any object that i
 
 ## License
 
-Copyright © 2017 Eero Helenius
+Copyright © 2019 Eero Helenius
 
 Distributed under the [Eclipse Public License][EPL] either version 1.0 or (at
 your option) any later version.
