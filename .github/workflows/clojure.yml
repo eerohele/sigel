@@ -18,15 +18,15 @@ jobs:
           tools-deps: '1.10.1.469'
 
       - name: Fetch dependencies
-        run: clojure -J-Dmaven.repo.local=$GITHUB_WORKSPACE/.m2 -Sforce
+        run: clojure -Sforce
 
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
-          path: .m2
+          path: ~/.m2
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
 
       - name: Run tests
-        run: clojure -J-Dmaven.repo.local=$GITHUB_WORKSPACE/.m2 -A:test
+        run: clojure -A:test
