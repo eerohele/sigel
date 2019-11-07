@@ -7,16 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '11.0.5'
-
-      - uses: DeLaGuardo/setup-clojure@2.0
-        with:
-          tools-deps: '1.10.1.483'
-
       - name: Cache m2 dependencies
         uses: actions/cache@v1
         with:
@@ -32,6 +22,19 @@ jobs:
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
+
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11.0.5'
+
+      - uses: DeLaGuardo/setup-clojure@2.0
+        with:
+          tools-deps: '1.10.1.483'
+
+      - name: Describe environment
+        run: clojure -Sdescribe
 
       - name: Run tests
         run: clojure -A:test
