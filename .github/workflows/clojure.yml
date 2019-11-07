@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-clj-
 
-      - name: Cache gitlibs
+      - name: Cache gitlib dependencies
         uses: actions/cache@v1
         with:
           path: ~/.gitlibs
