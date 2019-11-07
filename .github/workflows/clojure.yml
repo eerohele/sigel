@@ -4,9 +4,21 @@ on: [push]
 
 jobs:
   build:
-    name: Run tests
-    runs-on: ubuntu-latest
+    runs-on: clojure:tools-deps-alpine
+
     steps:
       - uses: actions/checkout@v1
 
-      - uses: ./
+      - name: Fetch dependencies
+        run: clojure -J-Dmaven.repo.local=.m2 -Sforce
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: .m2
+          key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clj-
+
+      - name: Run tests
+        run: clojure -J-Dmaven.repo.local=.m2 -A:test
