@@ -11,7 +11,7 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: '9.0.4'
+          java-version: '11.0.5'
 
       - uses: DeLaGuardo/setup-clojure@2.0
         with:
