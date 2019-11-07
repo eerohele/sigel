@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: ${{ runner.OS }}-clj-${{ hashFiles('deps.edn') }}
+          key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
 
