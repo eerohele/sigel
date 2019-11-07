@@ -26,9 +26,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-clj-
 
-      - name: Fetch dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: clojure -R:test -Sforce
-
       - name: Run tests
         run: clojure -A:test
