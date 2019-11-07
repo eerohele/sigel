@@ -20,13 +20,13 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
-          path: ~/.m2/repository
+          path: .m2/repository
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
 
       - name: Fetch dependencies
-        run: clojure -R:test -Sforce
+        run: clojure -Sdeps '{:mvn/local-repo ".m2/repository"}' -R:test -Sforce
 
       - name: Run tests
-        run: clojure -A:test
+        run: clojure -Sdeps '{:mvn/local-repo ".m2/repository"}' -A:test
