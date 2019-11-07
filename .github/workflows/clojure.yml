@@ -10,7 +10,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
-          - path: /app/.m2
-          - key: ${{ runner.OS }}-build-${{ hashFiles('deps.edn') }}
+          path: /app/.m2
+          key: ${{ runner.OS }}-build-${{ hashFiles('deps.edn') }}
       - uses: actions/checkout@v1
       - uses: ./.github/actions
