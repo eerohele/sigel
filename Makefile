@@ -4,7 +4,7 @@ run:
 	@clj -m sigel.core
 
 test:
-	@clj -A:test:test/clj
+	@clj -A:test
 
 pom: pom.xml
 	@clj -Spom
