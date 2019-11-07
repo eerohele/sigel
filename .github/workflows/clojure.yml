@@ -7,10 +7,14 @@ jobs:
     name: Run tests
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
+
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
           path: /app/.m2
-          key: ${{ runner.OS }}-build-${{ hashFiles('deps.edn') }}
-      - uses: actions/checkout@v1
+          key: ${{ runner.OS }}-clj-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clj-
+
       - uses: ./.github/actions
