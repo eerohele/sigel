@@ -23,7 +23,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
-          path: $HOME/.m2
+          path: /github/home/.m2
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
