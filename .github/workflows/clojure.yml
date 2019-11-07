@@ -18,15 +18,15 @@ jobs:
           tools-deps: '1.10.1.483'
 
       - name: Fetch dependencies
-        run: clojure -R:test -Sforce
+        run: clojure -Sdeps '{:mvn/local-repo ".m2/repository"}' -R:test -Sforce
 
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
-          path: ~/.m2
+          path: .m2/repository
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
 
       - name: Run tests
-        run: clojure -A:test
+        run: clojure -Sdeps '{:mvn/local-repo ".m2/repository"}' -A:test
