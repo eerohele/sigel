@@ -6,7 +6,6 @@
                   :main-opts   ["-m" "cognitect.test-runner" "-d" "test"]
                   :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner",
                                                            :sha     "cb96e80f6f3d3b307c59cbeb49bb0dcb3a2a780b"}
-                                criterium                 {:mvn/version "0.4.5"}
                                 org.xmlunit/xmlunit-core  {:mvn/version "2.6.3"}}}}
 
  :deps    {net.sf.saxon/Saxon-HE {:mvn/version "9.9.1-5"}
