@@ -21,17 +21,13 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/deps.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          key: maven
 
       - name: Cache Git dependencies
         uses: actions/cache@v1
         with:
           path: ~/.gitlibs
-          key: ${{ runner.OS }}-gitlibs-${{ hashFiles('**/deps.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-gitlibs-
+          key: gitlibs
 
       - name: Run tests
         run: clojure -A:test
