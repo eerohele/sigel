@@ -17,11 +17,20 @@ jobs:
         with:
           tools-deps: '1.10.1.483'
 
-      - name: Cache dependencies
+      - name: Cache m2 dependencies
         id: cache
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
+          key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clj-
+
+      - name: Cache gitlibs
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.gitlibs
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
