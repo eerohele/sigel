@@ -33,11 +33,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gitlibs-
 
-      - name: find m2
-        run: [ -d ~/.m2 ] && find ~/.m2
-
-      - name: find gitlibs
-        run: [ -d ~/.gitlibs ] && find ~/.gitlibs
-
       - name: Run tests
         run: clojure -A:test
