@@ -18,7 +18,7 @@ jobs:
           tools-deps: '1.10.1.483'
 
       - name: Fetch dependencies
-        run: clojure -Sforce
+        run: clojure -R:test -Sforce
 
       - name: Cache dependencies
         uses: actions/cache@v1
