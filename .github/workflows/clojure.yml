@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - uses: ./.github/actions
+
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
@@ -16,5 +18,3 @@ jobs:
           key: ${{ runner.OS }}-clj-${{ hashFiles('**/deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
-
-      - uses: ./.github/actions
