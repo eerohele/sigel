@@ -1,7 +1,12 @@
-[:xsl/stylesheet {:version 3.0
-                  :xmlns/xs "http://www.w3.org/2001/XMLSchema"
+[:xsl/stylesheet {:version                 3.0
+                  :xmlns/xs                "http://www.w3.org/2001/XMLSchema"
                   :exclude-result-prefixes "xs"}
  [:xsl/param {:name "p" :as "xs:integer"}]
+
  [:xsl/output {:omit-xml-declaration "yes"}]
- [:xsl/template {:match "b"} [:c [:xsl/value-of {:select "$p * 2"}]]]
- [:xsl/template {:match "y"} [:z]]]
+
+ [:xsl/template {:match "b"}
+  [:c [:xsl/value-of {:select "$p * 2"}]]]
+
+ [:xsl/template {:match "y"}
+  [:z]]]
