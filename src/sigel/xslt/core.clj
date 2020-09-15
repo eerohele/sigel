@@ -75,8 +75,7 @@
             [sigel.utils :as u]
             [sigel.xslt.components :as components]
             [clojure.edn :as edn]
-            [clojure.walk :as walk]
-            [clojure.java.io :as io])
+            [clojure.walk :as walk])
   (:import (java.io StringWriter PushbackReader)
            (javax.xml.transform.stream StreamSource)
            (net.sf.saxon.s9api XsltCompiler XdmDestination Xslt30Transformer)))
