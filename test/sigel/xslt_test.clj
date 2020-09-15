@@ -4,7 +4,7 @@
             [sigel.xslt.core :as xslt]
             [sigel.test-utils :refer :all]
             [sigel.utils :as u]
-            [clojure.test :refer :all]
+            [clojure.test :refer [deftest is]]
             [clojure.java.io :as io])
   (:refer-clojure :exclude [identity]))
 
@@ -98,3 +98,14 @@
     (is (xml-equal?
           (xslt/transform (xslt/compile-sexp xslt) "<para>...Пам...</para>")
           ["<output/>"]))))
+
+(deftest issue-4
+  (let [xslt (xsl/stylesheet {:version 3.0}
+               (xsl/template {:match "@* | node()"}
+                 (xsl/copy
+                   (xsl/apply-templates {:select "@* | node()"}))))]
+    (is (xml-equal?
+          (xslt/transform
+            [(xslt/compile-sexp xslt) (xslt/compile-sexp xslt)]
+            "<!-- a --> <b/>")
+          ["<!-- a --> <b/>"]))))

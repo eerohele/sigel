@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## 1.0.1 (2020-09-15)
+- Fix support for transformation pipelines that yield multiple root node children #4
+
 ## 1.0.0 (2020-02-19)
 - Update to Saxon v9.9.1-6
 

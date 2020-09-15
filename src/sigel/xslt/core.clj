@@ -214,7 +214,11 @@
     (let [transformer (get-transformer ex params)]
       (if (empty? exs)
         (apply-templates transformer source destination)
-        (pipeline exs params (apply-templates transformer source) destination)))))
+        (pipeline exs params
+          (->> (XdmDestination.)
+               (apply-templates transformer source)
+               (.getXdmNode))
+          destination)))))
 
 
 (defn transform
