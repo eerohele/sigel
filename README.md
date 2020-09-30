@@ -15,8 +15,7 @@ Sigel lets you write XSLT, but with parentheses instead of angle brackets.
 
 ```clojure
 (require '[sigel.xslt.core :as xslt]
-         '[sigel.xslt.elements :as xsl]
-         '[sigel.protocols :refer :all])
+         '[sigel.xslt.elements :as xsl])
 
 (def stylesheet-1
   "An XSLT stylesheet that converts <a/> to <b/>."
