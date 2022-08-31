@@ -28,7 +28,8 @@
 
 
 (deftest value-of-xpath-expression
-  (is (= (xpath/value-of "<num>1</num>" "xs:int(num)") 1)))
+  (is (= (xpath/value-of "<num>1</num>" "xs:int(num)") 1))
+  (is (nil? (xpath/value-of "<a/>" "a/b/text()"))))
 
 
 (deftest matches-xpath-pattern

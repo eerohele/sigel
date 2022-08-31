@@ -258,7 +258,7 @@
   ([compiler context expression bindings]
    (let [value (.. (bind-selector compiler :expression expression context bindings)
                    (evaluateSingle))]
-     (saxon/xdmvalue->object value)))
+     (some-> value saxon/xdmvalue->object)))
   ([context expression]
    (value-of *compiler* context expression nil)))
 
