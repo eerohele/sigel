@@ -3,7 +3,7 @@
   (:require [sigel.saxon :as saxon])
   (:import (javax.xml.transform.stream StreamSource)
            (net.sf.saxon.s9api QName XdmNode XdmValue XdmAtomicValue)
-           (java.io StringReader File)
+           (java.io StringReader File InputStream)
            (java.net URI URL)
            (javax.xml.transform Source)
            (clojure.lang Keyword APersistentVector)))
@@ -32,7 +32,10 @@
     (.build saxon/builder (StreamSource. uri)))
   URL
   (build [^URL url]
-    (.build saxon/builder (StreamSource. (str url)))))
+    (.build saxon/builder (StreamSource. (str url))))
+  InputStream
+  (build [input-stream]
+    (-> input-stream StreamSource. build)))
 
 
 (defprotocol QNameable
