@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## 1.0.3 (2023-04-27)
+- Extend `XMLSource` to `InputStream`
+
 ## 1.0.2 (2023-02-23)
 - Fix `xpath/value-of` NPE
 - Bump deps
