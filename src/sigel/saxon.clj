@@ -1,5 +1,6 @@
 (ns sigel.saxon
   (:import (net.sf.saxon Configuration)
+           (net.sf.saxon.lib FeatureKeys)
            (net.sf.saxon.s9api DocumentBuilder Processor)))
 
 
@@ -10,7 +11,10 @@
 
 (def ^Processor processor
   "A default Saxon [Processor](http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/Processor.html)."
-  (Processor. configuration))
+  (doto (Processor. configuration)
+    (.setConfigurationProperty (str FeatureKeys/XML_PARSER_FEATURE "http://apache.org/xml/features/nonvalidating/load-external-dtd") false)
+    (.setConfigurationProperty (str FeatureKeys/XML_PARSER_FEATURE "http://xml.org/sax/features/external-general-entities") false)
+    (.setConfigurationProperty (str FeatureKeys/XML_PARSER_FEATURE "http://xml.org/sax/features/external-parameter-entities") false)))
 
 
 (def ^DocumentBuilder builder

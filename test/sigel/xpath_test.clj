@@ -49,3 +49,8 @@
                      "<num>1</num>" "num[xs:integer(.) eq $one]"
                      {:one 1})
         ["<num>1</num>"])))
+
+(deftest issue-8
+  (is (empty?
+        (xpath/value-of
+          "<!DOCTYPE x [<!ELEMENT x ANY> <!ENTITY xxe SYSTEM 'file:///etc/hostname'>]><x>&xxe;</x>""/x"))))
